@@ -11,107 +11,67 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://asifalam194.github.io">
 
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.7;
-      color: #1a1a1a;
-      background: #fdfdfb;
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 48px 24px;
-    }
-    nav { margin-bottom: 40px; font-size: 0.95rem; }
-    nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
-    nav a:hover { text-decoration: underline; }
-    h1 { font-size: 2.4rem; margin-bottom: 4px; letter-spacing: -0.5px; }
-    .tagline { font-size: 1.15rem; color: #2d6a4f; font-weight: 500; margin-top: 0; }
-    h2 {
-      font-size: 1.2rem;
-      margin-top: 48px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #d8e2dc;
-    }
-    .soon { color: #6b7280; font-style: italic; }
-    .contact-line { margin: 6px 0; }
-    .article-link {
-      display: block;
-      background: #f4f7f5;
-      border: 1px solid #d8e2dc;
-      border-radius: 8px;
-      padding: 18px 20px;
-      margin-top: 14px;
-      text-decoration: none;
-      color: #1a1a1a;
-    }
-    .article-link:hover { background: #eaf1ed; }
-    .article-link strong { color: #2d6a4f; display: block; font-size: 1.05rem; }
-    .article-link span { font-size: 0.92rem; color: #6b7280; }
-    footer {
-      margin-top: 64px;
-      padding-top: 20px;
-      border-top: 1px solid #e5e7eb;
-      font-size: 0.9rem;
-      color: #6b7280;
-    }
-    a { color: #2d6a4f; }
-  </style>
-</head>
-<body>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="knowledge-hub.html">Knowledge Hub</a>
-    <a href="calculator.html">Calculator</a>
-  </nav>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fdfdfb;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #2d6a4f; }
 
-  <h1>Asif Alam</h1>
-  <p class="tagline">Sustainability Specialist · Surventis GmbH</p>
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(253,253,251,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .topbar-inner {
+    max-width: 940px; margin: 0 auto;
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .brand { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px; color: #1a1a1a; text-decoration: none; }
+  .topnav a {
+    color: #374151; text-decoration: none; font-size: 0.93rem;
+    font-weight: 500; margin-left: 22px;
+  }
+  .topnav a:hover { color: #2d6a4f; }
 
-  <p>
-    I work where sustainability meets data — turning complex regulation into clear,
-    actionable guidance. Based in Germany.
-  </p>
+  .hero {
+    background: #1d4f3a;
+    background-image: linear-gradient(160deg, #1d4f3a 0%, #276048 55%, #2d6a4f 100%);
+    color: #f2f7f4;
+    padding: 56px 24px 60px;
+  }
+  .hero-inner {
+    max-width: 940px; margin: 0 auto;
+    display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap;
+  }
+  .hero-left { flex: 0 0 230px; text-align: center; }
+  .hero-right { flex: 1 1 380px; }
 
-  <h2>Focus Areas</h2>
-  <p>
-    Packaging regulation (PPWR) · Biomass balance · Circular packaging models ·
-    Life cycle assessment · Data analytics
-  </p>
+  .portrait {
+    width: 168px; height: 168px; border-radius: 50%;
+    margin: 0 auto 18px;
+    background: #2d6a4f;
+    border: 4px solid rgba(255,255,255,0.22);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; font-weight: 600; color: #d8f0e2;
+    overflow: hidden;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
 
-  <h2>Projects</h2>
+  .hero-name { font-size: 1.45rem; font-weight: 700; margin: 0 0 2px; letter-spacing: -0.3px; }
+  .hero-role { font-size: 0.98rem; font-weight: 500; color: #b9dfc9; margin: 0; }
+  .hero-org { font-size: 0.92rem; color: rgba(242,247,244,0.72); margin: 0 0 16px; }
 
-  <a class="article-link" href="cottonid-lca.html">
-    <strong>Life Cycle Assessment of a Bio-Based Vulcanised Fibre (Cottonid)</strong>
-    <span>A cradle-to-gate LCA under ISO 14040/44, comparing four feedstock scenarios — and showing why the lowest-carbon option was not the lowest-impact one.</span>
-  </a>
-
-  <p class="soon" style="margin-top:18px;">
-    Comparative carbon analysis of data centres and AI workloads — in development.
-  </p>
-
-  <h2>Education</h2>
-  <p>
-    <strong>M.Sc. Sustainable Resource Management</strong><br>
-    Technical University of Munich
-  </p>
-  <p>
-    Thesis: a cradle-to-gate life cycle assessment of a bio-based vulcanised fibre,
-    conducted under ISO 14040/44 using GaBi.
-    <a href="cottonid-lca.html">Read the study →</a>
-  </p>
-
-  <h2>Contact</h2>
-  <p class="contact-line">
-    Email: <a href="mailto:asif.invesalam@gmail.com">asif.invesalam@gmail.com</a>
-  </p>
-  <p class="contact-line">
-    LinkedIn: <a href="https://www.linkedin.com/in/asifalam4710">linkedin.com/in/asifalam4710</a>
-  </p>
-
-  <footer>
-    Built and maintained by Asif Alam.
-  </footer>
-
-</body>
-</html>
+  .socials { display: flex; gap: 9px; justify-content:
