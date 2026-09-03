@@ -47,4 +47,352 @@
   .arrow { font-size: 1.2rem; color: #9ca3af; margin: 4px 0; }
 
   .bar-row { margin-bottom: 16px; }
-  .bar-title { font-size: 0.88rem; font-weight: 600;
+  .bar-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 5px; }
+  .bar-title span { font-weight: 400; color: #6b7280; font-size: 0.83rem; }
+  .bar-track {
+    background: #e5e7eb; border-radius: 5px; height: 24px; width: 100%;
+    overflow: hidden; display: block;
+  }
+  .bar-fill {
+    height: 24px; border-radius: 5px; background: #2d6a4f;
+    color: #fff; font-size: 0.78rem; font-weight: 600;
+    text-align: right; padding-right: 9px; line-height: 24px;
+    box-sizing: border-box; white-space: nowrap;
+  }
+  .bar-fill.worst { background: #b45309; }
+
+  table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 0.82rem; }
+  th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid #e5e7eb; }
+  th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.6px; color: #6b7280; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.best { background: #e3f2e9; font-weight: 600; color: #1d5138; }
+  td.worst { background: #fdf0e0; font-weight: 600; color: #92400e; }
+  .unit { display: block; font-weight: 400; color: #9ca3af; font-size: 0.75rem; }
+  .key { font-size: 0.82rem; color: #6b7280; }
+  .key b { color: #1d5138; }
+  .key i { color: #92400e; font-style: normal; }
+
+  .spec { font-size: 0.93rem; }
+  .spec dt { font-weight: 600; margin-top: 12px; }
+  .spec dd { margin: 0; color: #374151; }
+
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="calculator.html">Calculator</a>
+</nav>
+
+<h1>Life Cycle Assessment of a Bio-Based Vulcanised Fibre (Cottonid)</h1>
+<p class="lead">A cradle-to-gate LCA of a cellulose-based engineering material — and a clear case of the lowest-carbon option not being the lowest-impact one.</p>
+
+<h2>Why this study</h2>
+<p>
+  Most engineering plastics are made from fossil feedstock. Replacing them with bio-based
+  alternatives is one of the more obvious decarbonisation levers available to
+  manufacturers — and one of the least examined. A material described as bio-based is
+  frequently assumed to be the better choice on that basis alone, without anyone having
+  measured what it costs to produce.
+</p>
+<p>
+  This study was my M.Sc. thesis at the Technical University of Munich. It puts numbers to
+  that assumption for one specific material, then tests whether changing the raw paper
+  feedstock improves the result. The answer turns out to depend entirely on which impact
+  you look at.
+</p>
+
+<h2>The material</h2>
+<p>
+  Vulcanised fibre is one of the oldest engineered materials still in industrial use. It is
+  made by treating layered sheets of paper with zinc chloride, which swells the cellulose
+  and fuses the layers into a single dense sheet. The chemical is then washed out and the
+  material dried. There is no resin and no fossil polymer — the finished product is
+  essentially bonded cellulose.
+</p>
+<p>
+  The result is stiff, tough, machinable and electrically insulating, which is why
+  vulcanised fibre has long been used for electrical insulation, gaskets, abrasive disc
+  backings and protective components. It competes with engineering plastics while being
+  made almost entirely from a renewable raw material.
+</p>
+<p>
+  The product assessed here is <strong>Cottonid</strong>, produced at commercial scale by
+  Hornex in Germany. The assessment follows ISO 14040 and ISO 14044.
+</p>
+
+<h2>What was measured</h2>
+<p>
+  Cottonid-R is the reference product as actually manufactured, modelled on primary data
+  from the factory. The other three are scenarios I constructed by varying the raw paper
+  feedstock, to test whether a different input would give a better profile.
+</p>
+<ul>
+  <li><strong>Cottonid-R</strong> — 70% textile-waste pulp, 30% sulphate pulp <em>(reference, factory data)</em></li>
+  <li><strong>Cottonid-A</strong> — 70% textile-waste pulp, 30% waste paper pulp</li>
+  <li><strong>Cottonid-B</strong> — 100% textile-waste pulp</li>
+  <li><strong>Cottonid-C</strong> — 100% waste paper pulp</li>
+</ul>
+
+<div class="panel flow">
+  <div class="panel-label" style="text-align:left;">System boundary — cradle to gate</div>
+
+  <div>
+    <span class="box input">Pulp feedstock</span>
+    <span class="box input">Zinc chloride</span>
+    <span class="box input">Electricity &amp; gas</span>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="boundary">
+    <div class="boundary-tag">Assessed</div>
+    <span class="box">Raw material extraction</span>
+    <span class="box">Transport to factory</span>
+    <div class="arrow">↓</div>
+    <span class="box">Parchmentisation</span>
+    <span class="box">Rolling</span>
+    <span class="box">Washing</span>
+    <span class="box">Drying</span>
+  </div>
+
+  <div class="arrow">↓</div>
+  <div><span class="box out">1 kg Cottonid — at factory gate</span></div>
+
+  <div class="arrow">↓</div>
+  <div>
+    <span class="box excluded">Use phase</span>
+    <span class="box excluded">End of life</span>
+  </div>
+
+  <p class="caption" style="text-align:left;">
+    The assessment stops at the factory gate. Everything after it — service life, reuse,
+    disposal — sits outside the boundary, which is why these results cannot be used to
+    compare Cottonid against another material over a whole life cycle.
+  </p>
+</div>
+
+<h2>Method</h2>
+
+<div class="panel">
+  <div class="panel-label">Scope and modelling</div>
+  <dl class="spec">
+    <dt>Functional unit</dt>
+    <dd>1 kg of Cottonid, from 1.2 m² of paper, 3 mm thick, 135 g/m², 18 layers.</dd>
+
+    <dt>Foreground data</dt>
+    <dd>From the manufacturer by questionnaire: 2.88 MJ electricity, 10.8 MJ natural gas,
+    0.05 kg of 70% zinc chloride solution and 1 kg mixed-pulp paper per kg of Cottonid.
+    Full recycling of the zinc chloride solution is assumed.</dd>
+
+    <dt>Background data</dt>
+    <dd>Sphera and ecoinvent. Textile-waste pulping and mixed-pulp papermaking were built
+    from published literature, as no dataset existed.</dd>
+
+    <dt>Software and method</dt>
+    <dd>GaBi. CML-2016 midpoint, nine impact categories.</dd>
+  </dl>
+</div>
+
+<h2>Full results</h2>
+<p>Per kilogram of Cottonid, all four scenarios:</p>
+
+<table>
+  <tr>
+    <th>Impact category</th>
+    <th class="num">R</th>
+    <th class="num">A</th>
+    <th class="num">B</th>
+    <th class="num">C</th>
+  </tr>
+  <tr>
+    <td>Global warming <span class="unit">kg CO₂ eq</span></td>
+    <td class="num">2.85</td><td class="num worst">3.57</td><td class="num">2.98</td><td class="num best">2.36</td>
+  </tr>
+  <tr>
+    <td>Abiotic depletion, fossil <span class="unit">MJ</span></td>
+    <td class="num">42.9</td><td class="num worst">43.7</td><td class="num">42.7</td><td class="num best">27.0</td>
+  </tr>
+  <tr>
+    <td>Acidification <span class="unit">kg SO₂ eq</span></td>
+    <td class="num">0.008</td><td class="num">0.0082</td><td class="num worst">0.0083</td><td class="num best">0.00617</td>
+  </tr>
+  <tr>
+    <td>Eutrophication <span class="unit">kg phosphate eq</span></td>
+    <td class="num">−0.0245</td><td class="num">−0.029</td><td class="num best">−0.030</td><td class="num worst">0.00345</td>
+  </tr>
+  <tr>
+    <td>Marine aquatic ecotoxicity <span class="unit">kg DCB eq</span></td>
+    <td class="num best">953</td><td class="num">1,240</td><td class="num">1,070</td><td class="num worst">2,770</td>
+  </tr>
+  <tr>
+    <td>Freshwater aquatic ecotoxicity <span class="unit">kg DCB eq</span></td>
+    <td class="num best">−0.101</td><td class="num">−0.0042</td><td class="num">−0.0195</td><td class="num worst">0.706</td>
+  </tr>
+  <tr>
+    <td>Human toxicity <span class="unit">kg DCB eq</span></td>
+    <td class="num">0.265</td><td class="num">0.371</td><td class="num best">0.206</td><td class="num worst">0.612</td>
+  </tr>
+  <tr>
+    <td>Terrestrial ecotoxicity <span class="unit">kg DCB eq</span></td>
+    <td class="num">0.0041</td><td class="num">0.0102</td><td class="num best">0.00346</td><td class="num worst">0.0148</td>
+  </tr>
+  <tr>
+    <td>Photochemical ozone creation <span class="unit">kg ethene eq</span></td>
+    <td class="num">0.00048</td><td class="num">0.00049</td><td class="num best">0.00039</td><td class="num worst">0.000493</td>
+  </tr>
+</table>
+
+<p class="key">
+  <b>Green = best</b> in that category · <i>Amber = worst</i>. Negative values are net
+  credits, where substituting waste-derived cellulose avoids burdens that virgin
+  production would have caused.
+</p>
+
+<h2>Carbon, in isolation</h2>
+
+<div class="panel">
+  <div class="panel-label">Global warming potential — kg CO₂ eq per kg</div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-C <span>— 100% waste paper pulp</span></div>
+    <div class="bar-track"><div class="bar-fill" style="width:66%;">2.36</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-R <span>— reference</span></div>
+    <div class="bar-track"><div class="bar-fill" style="width:80%;">2.85</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-B <span>— 100% textile waste pulp</span></div>
+    <div class="bar-track"><div class="bar-fill" style="width:84%;">2.98</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-A <span>— 70% textile waste, 30% waste paper</span></div>
+    <div class="bar-track"><div class="bar-fill worst" style="width:100%;">3.57</div></div>
+  </div>
+
+  <p class="caption">
+    Waste paper pulp gives the lowest carbon figure — around 17% below the reference and
+    34% below Cottonid-A.
+  </p>
+</div>
+
+<div class="panel">
+  <div class="panel-label">Abiotic depletion, fossil — MJ per kg</div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-C</div>
+    <div class="bar-track"><div class="bar-fill" style="width:62%;">27.0</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-B</div>
+    <div class="bar-track"><div class="bar-fill" style="width:98%;">42.7</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-R</div>
+    <div class="bar-track"><div class="bar-fill" style="width:98%;">42.9</div></div>
+  </div>
+
+  <div class="bar-row">
+    <div class="bar-title">Cottonid-A</div>
+    <div class="bar-track"><div class="bar-fill worst" style="width:100%;">43.7</div></div>
+  </div>
+
+  <p class="caption">
+    The gap here is larger than for carbon. Waste paper pulp cuts fossil resource depletion
+    by around 37%, while the other three sit within 2% of each other.
+  </p>
+</div>
+
+<p>
+  On the energy-driven indicators, then, the conclusion looks obvious. Cottonid-C is the
+  best of the four on global warming, on fossil depletion and on acidification. A
+  procurement decision made on carbon would stop here.
+</p>
+
+<h2>The inversion</h2>
+<p>
+  It would be the wrong decision. Cottonid-C is the <em>worst</em> of the four scenarios in
+  six of the nine categories — every toxicity indicator, plus eutrophication and
+  photochemical ozone creation.
+</p>
+<p>
+  Against the reference product, marine aquatic ecotoxicity is roughly three times higher,
+  human toxicity more than double, terrestrial ecotoxicity more than triple. Freshwater
+  ecotoxicity flips from a net credit of −0.101 to a burden of 0.706, and eutrophication
+  flips the same way. The three feedstocks containing textile waste all hold their negative
+  eutrophication values; waste paper alone does not.
+</p>
+<p>
+  The rest of the picture is more evenly split than a single winner would suggest. The
+  reference product is best on both marine and freshwater ecotoxicity. Cottonid-B, made
+  entirely from textile waste, is best on human toxicity, terrestrial ecotoxicity,
+  eutrophication and photochemical ozone creation. Cottonid-A is worst on carbon and fossil
+  depletion and never best at anything, which makes it the one scenario that can be ruled
+  out cleanly.
+</p>
+
+<h2>What it means</h2>
+<p>
+  There is no single best feedstock here. There is a choice about which burden to carry:
+  waste paper buys lower energy-related impacts and pays for it in toxicity, while textile
+  waste does the reverse.
+</p>
+<p>
+  That trade-off is invisible to a carbon footprint. Ranking these four options on GWP
+  alone would have selected the scenario with roughly three times the marine ecotoxicity of
+  the product already being made — and the decision would have looked well-evidenced. This
+  is the practical argument for full life cycle assessment over single-indicator
+  footprinting, and it generalises well beyond one material: bio-based and recycled inputs
+  shift impacts between categories at least as often as they reduce them.
+</p>
+
+<h2>Limitations</h2>
+<p>
+  Stating these matters more than the results themselves. An LCA without honest boundaries
+  is a marketing document.
+</p>
+<ul>
+  <li>
+    No primary data were available for pulp or paper production. These stages rely on
+    literature and generic database inventories — and they are the largest contributors to
+    most impact categories.
+  </li>
+  <li>
+    No established dataset exists for pulp derived from textile waste, so the process was
+    constructed from published inventory data.
+  </li>
+  <li>
+    Zinc chloride solution is absent from the databases used and was modelled
+    stoichiometrically from zinc and hydrochloric acid inventories.
+  </li>
+  <li>
+    Waste outflows at each production stage were assumed negligible and are not modelled.
+  </li>
+  <li>
+    The assessment stops at the factory gate. Use-phase performance, service life and end of
+    life are not covered, so these results do not support whole-life comparisons against
+    other materials.
+  </li>
+  <li>No sensitivity or uncertainty analysis was performed.</li>
+  <li>
+    Results are specific to one manufacturer, one site and the German electricity grid mix,
+    and are not generalisable to vulcanised fibre production elsewhere.
+  </li>
+</ul>
+
+<footer>
+  M.Sc. thesis, Technical University of Munich. Conducted under ISO 14040/44 using GaBi,
+  with Sphera and ecoinvent background data. Product data provided by Hornex.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+</body>
+</html>
