@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eurostat API test</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6; color: #1a1a1a; background: #fdfdfb;
+    max-width: 760px; margin: 0 auto; padding: 40px 24px;
+  }
+  h1 { font-size: 1.5rem; }
+  .status { padding: 14px 16px; border-radius: 8px; margin: 18px 0; font-weight: 600; }
+  .ok { background: #e3f2e9; color: #1d5138; border: 1px solid #b9dfc9; }
+  .fail { background: #fdeaea; color: #991b1b; border: 1px solid #f3c2c2; }
+  .pending { background: #f4f7f5; color: #374151; border: 1px solid #d8e2dc; }
+  .headline {
+    background: #1d4f3a; color: #fff; border-radius: 10px;
+    padding: 26px; text-align: center; margin: 22px 0;
+  }
+  .headline .big { font-size: 3rem; font-weight: 700; line-height: 1.1; }
+  .headline .sub { font-size: 0.9rem; opacity: 0.8; }
+  pre {
+    background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 8px;
+    padding: 14px; overflow-x: auto; font-size: 0.78rem; white-space: pre-wrap;
+    word-break: break-word;
+  }
+  h2 { font-size: 1rem; margin-top: 30px; }
+  code { font-size: 0.85rem; background: #f4f7f5; padding: 2px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Eurostat API test</h1>
+<p>
+  This page calls the Eurostat Statistics API directly from your browser and reports what
+  comes back. It is a diagnostic file only — safe to delete afterwards.
+</p>
+
+<p><strong>Dataset:</strong> <code>cei_srm030</code> — Circular material use rate, EU27.</p>
+
+<div id="status" class="status pending">Calling Eurostat…</div>
+
+<div id="headline"></div>
+
+<h2>Request URL</h2>
+<pre id="url"></pre>
+
+<h2>Structure returned</h2>
+<pre id="structure">—</pre>
+
+<h2>Recent values</h2>
+<pre id="series">—</pre>
+
+<h2>Raw response (first 1200 characters)</h2>
+<pre id="raw">—</pre>
+
+<script>
+const URL_USED =
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/cei_srm030"
+  + "?format=JSON&lang=EN&geo=EU27_2020";
+
+document.getElementById("url").textContent = URL_USED;
+
+function setStatus(cls, msg) {
+  const el = document.getElementById("status");
+  el.className = "status " + cls;
+  el.textContent = msg;
+}
+
+fetch(URL_USED)
+  .then(function (res) {
+    if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
+    return res.json();
+  })
+  .then(function (data) {
+    setStatus("ok", "SUCCESS — Eurostat responded and the browser accepted it (CORS is fine).");
+
+    document.getElementById("raw").textContent =
+      JSON.stringify(data).substring(0, 1200) + " …";
+
+    var dims = (data.id || []);
+    var sizes = (data.size || []);
+    var lines = [];
+    lines.push("label: " + (data.label || "—"));
+    lines.push("updated: " + (data.updated || "—"));
+    lines.push("dimensions: " + dims.length);
+    for (var i = 0; i < dims.length; i++) {
+      lines.push("  " + dims[i] + "  (size " + sizes[i] + ")");
+    }
+    document.getElementById("structure").textContent = lines.join("\n");
+
+    try {
+      var timeIdx = data.dimension.time.category.index;
+      var years = Object.keys(timeIdx).sort(function (a, b) {
+        return timeIdx[a] - timeIdx[b];
+      });
+
+      var otherDimsAreSingle = true;
+      for (var j = 0; j < dims.length; j++) {
+        if (dims[j] !== "time" && sizes[j] !== 1) otherDimsAreSingle = false;
+      }
+
+      var out = [];
+      var latestVal = null, latestYear = null;
+
+      if (otherDimsAreSingle) {
+        for (var k = 0; k < years.length; k++) {
+          var v = data.value[String(timeIdx[years[k]])];
+          if (v !== undefined && v !== null) {
+            out.push(years[k] + "   " + v);
+            latestVal = v; latestYear = years[k];
+          }
+        }
+      } else {
+        out.push("More than one dimension has multiple values.");
+        out.push("Dimension sizes: " + sizes.join(", "));
+        out.push("Extraction needs an extra filter — send me this page's output.");
+      }
+
+      document.getElementById("series").textContent =
+        out.slice(-8).join("\n") || "No values parsed.";
+
+      if (latestVal !== null) {
+        document.getElementById("headline").innerHTML =
+          '<div class="headline">'
+          + '<div class="big">' + latestVal + '%</div>'
+          + '<div class="sub">EU circular material use rate, ' + latestYear
+          + ' — live from Eurostat</div></div>';
+      }
+    } catch (e) {
+      document.getElementById("series").textContent =
+        "Could not parse the series: " + e.message;
+    }
+  })
+  .catch(function (err) {
+    setStatus("fail", "FAILED — " + err.message);
+    document.getElementById("raw").textContent =
+      "The request did not complete.\n\n"
+      + "If the message above mentions CORS, network, or 'Failed to fetch', it means\n"
+      + "Eurostat does not allow direct browser calls and we need a different approach.";
+  });
+</script>
+
+</body>
+</html>
