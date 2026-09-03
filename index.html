@@ -74,4 +74,189 @@
   .hero-role { font-size: 0.98rem; font-weight: 500; color: #b9dfc9; margin: 0; }
   .hero-org { font-size: 0.92rem; color: rgba(242,247,244,0.72); margin: 0 0 16px; }
 
-  .socials { display: flex; gap: 9px; justify-content:
+  .socials { display: flex; gap: 9px; justify-content: center; }
+  .socials a {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #f2f7f4; text-decoration: none;
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .socials a:hover { background: rgba(255,255,255,0.14); }
+
+  .hero h2 {
+    font-size: 1.15rem; font-weight: 600; margin: 0 0 12px;
+    color: #fff; letter-spacing: -0.2px;
+  }
+  .hero p { color: rgba(242,247,244,0.9); margin-top: 0; }
+  .hero-cols { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 30px; }
+  .hero-col { flex: 1 1 210px; }
+  .hero-col ul { list-style: none; padding: 0; margin: 0; }
+  .hero-col li { font-size: 0.92rem; color: rgba(242,247,244,0.9); margin-bottom: 8px; }
+  .hero-col li strong { display: block; color: #fff; font-weight: 600; }
+  .hero-col li span { color: rgba(242,247,244,0.65); font-size: 0.87rem; }
+
+  main { max-width: 940px; margin: 0 auto; padding: 8px 24px 40px; }
+  section { margin-top: 52px; }
+  h3.sec {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.6px;
+    color: #6b7280; font-weight: 600;
+    margin: 0 0 18px; padding-bottom: 10px;
+    border-bottom: 2px solid #d8e2dc;
+  }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card {
+    display: block; background: #fff;
+    border: 1px solid #e2e8e5; border-radius: 10px;
+    padding: 20px 22px; text-decoration: none; color: #1a1a1a;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: #9dc3ae; transform: translateY(-2px); }
+  .card strong { display: block; color: #2d6a4f; font-size: 1.02rem; margin-bottom: 5px; line-height: 1.4; }
+  .card span { font-size: 0.9rem; color: #6b7280; line-height: 1.6; }
+  .card .kicker {
+    display: inline-block; font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 1.2px; color: #6b7280; margin-bottom: 8px;
+  }
+
+  .soon { color: #6b7280; font-style: italic; font-size: 0.93rem; margin-top: 16px; }
+  .contact-line { margin: 6px 0; }
+
+  footer {
+    border-top: 1px solid #e5e7eb; margin-top: 64px;
+    padding: 22px 24px 40px; font-size: 0.88rem; color: #6b7280;
+    max-width: 940px; margin-left: auto; margin-right: auto;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 40px 20px 44px; }
+    .hero-inner { gap: 28px; }
+    .hero-left { flex: 1 1 100%; }
+    .topnav a { margin-left: 0; margin-right: 16px; }
+    .topbar-inner { padding: 12px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Asif Alam</a>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="knowledge-hub.html">Knowledge Hub</a>
+      <a href="calculator.html">Calculator</a>
+    </nav>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="portrait">AA</div>
+      <p class="hero-name">Asif Alam</p>
+      <p class="hero-role">Sustainability Specialist</p>
+      <p class="hero-org">Surventis GmbH · Münster, Germany</p>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/asifalam4710" title="LinkedIn">in</a>
+        <a href="mailto:asif.invesalam@gmail.com" title="Email">@</a>
+        <a href="https://github.com/asifalam194" title="GitHub">GH</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <h2>About</h2>
+      <p>
+        I work where sustainability meets data — turning complex regulation into clear,
+        actionable guidance. My focus is EU packaging law, mass balance certification and
+        life cycle assessment, and the practical question underneath all three: what does
+        this actually require a business to do?
+      </p>
+
+      <div class="hero-cols">
+        <div class="hero-col">
+          <h2 style="font-size:0.95rem;">Focus areas</h2>
+          <ul>
+            <li>Packaging regulation (PPWR)</li>
+            <li>Biomass balance</li>
+            <li>Circular packaging models</li>
+            <li>Life cycle assessment</li>
+            <li>Data analytics</li>
+          </ul>
+        </div>
+        <div class="hero-col">
+          <h2 style="font-size:0.95rem;">Education</h2>
+          <ul>
+            <li>
+              <strong>M.Sc. Sustainable Resource Management</strong>
+              <span>Technical University of Munich</span>
+            </li>
+            <li>
+              <strong>Thesis — Life Cycle Assessment</strong>
+              <span>Cradle-to-gate LCA of a bio-based vulcanised fibre, ISO 14040/44</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<main>
+
+  <section>
+    <h3 class="sec">Projects</h3>
+    <div class="cards">
+      <a class="card" href="cottonid-lca.html">
+        <span class="kicker">Life cycle assessment</span>
+        <strong>LCA of a Bio-Based Vulcanised Fibre (Cottonid)</strong>
+        <span>A cradle-to-gate assessment under ISO 14040/44 across four feedstock scenarios — and a clear case of the lowest-carbon option not being the lowest-impact one.</span>
+      </a>
+      <a class="card" href="calculator.html">
+        <span class="kicker">Tool</span>
+        <strong>Carbon Footprint Calculator</strong>
+        <span>Household electricity and car travel, using Umweltbundesamt emission factors and German fleet-average consumption data.</span>
+      </a>
+    </div>
+    <p class="soon">Comparative carbon analysis of data centres and AI workloads — in development.</p>
+  </section>
+
+  <section>
+    <h3 class="sec">Knowledge Hub</h3>
+    <div class="cards">
+      <a class="card" href="circular-economy-act.html">
+        <strong>The Circular Economy Act, Explained</strong>
+        <span>The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that.</span>
+      </a>
+      <a class="card" href="ppwr.html">
+        <strong>PPWR, Explained</strong>
+        <span>One change matters more than any individual target: packaging law stopped being a directive and became a regulation.</span>
+      </a>
+      <a class="card" href="mass-balance.html">
+        <strong>Mass Balance, Explained</strong>
+        <span>Why a certified sustainable product is chemically identical to the conventional one — and why that is the point, not a loophole.</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec">Contact</h3>
+    <p class="contact-line">
+      Email: <a href="mailto:asif.invesalam@gmail.com">asif.invesalam@gmail.com</a>
+    </p>
+    <p class="contact-line">
+      LinkedIn: <a href="https://www.linkedin.com/in/asifalam4710">linkedin.com/in/asifalam4710</a>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Built and maintained by Asif Alam.
+</footer>
+
+</body>
+</html>
