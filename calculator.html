@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Calculator — Asif Alam</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fdfdfb;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    nav { margin-bottom: 40px; font-size: 0.95rem; }
+    nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
+    nav a:hover { text-decoration: underline; }
+    h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
+    .lead { font-size: 1.1rem; color: #444; }
+    .calc {
+      background: #f4f7f5;
+      border: 1px solid #d8e2dc;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .calc label {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .calc input, .calc select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #c5d2ca;
+      border-radius: 5px;
+      margin-bottom: 18px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    .calc button {
+      background: #2d6a4f;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .calc button:hover { background: #245741; }
+    #result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      min-height: 1.6em;
+    }
+    .source {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+    footer {
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+    a { color: #2d6a4f; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">← Home</a>
+    <a href="knowledge-hub.html">Knowledge Hub</a>
+    <a href="calculator.html">Calculator</a>
+  </nav>
+
+  <h1>Carbon Footprint Calculator</h1>
+  <p class="lead">
+    An estimate of annual CO<sub>2</sub> emissions from household electricity and car
+    travel, using German emission factors and fleet-average consumption data.
+  </p>
+
+  <div class="calc">
+    <label for="kwh">Annual household electricity (kWh)</label>
+    <input type="number" id="kwh" placeholder="e.g. 2500" min="0">
+
+    <label for="vehicle">Vehicle type</label>
+    <select id="vehicle">
+      <option value="petrol">Petrol</option>
+      <option value="diesel">Diesel</option>
+      <option value="electric">Electric</option>
+      <option value="none">No car</option>
+    </select>
+
+    <label for="km">Annual distance driven (km)</label>
+    <input type="number" id="km" placeholder="e.g. 12000" min="0">
+
+    <button onclick="calculateFootprint()">Calculate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <p class="source">
+    <strong>Method.</strong> Electricity: 363 g CO<sub>2</sub>/kWh (Umweltbundesamt,
+    German electricity mix, 2024). Fuel combustion: petrol 2.30 kg CO<sub>2</sub>/l,
+    diesel 2.65 kg CO<sub>2</sub>/l (GHG Protocol). Assumed fleet-average consumption:
+    petrol 7.7 l/100 km, diesel 6.8 l/100 km, electric 18.5 kWh/100 km (real-world
+    European data). Electric vehicles are charged on the German grid and are therefore
+    not zero-emission.<br><br>
+    <strong>Scope.</strong> Tank-to-wheel and operational electricity only. Excludes
+    fuel production (well-to-tank), vehicle and battery manufacturing, heating, food,
+    and goods. Indicative estimate — not a full life cycle assessment.
+  </p>
+
+  <footer>
+    Built and maintained by Asif Alam.
+    <br><a href="index.html">← Back to home</a>
+  </footer>
+
+  <script>
+    var VEHICLES = {
+      petrol:   { consumption: 7.7,  factor: 2.30,  label: 'Petrol car' },
+      diesel:   { consumption: 6.8,  factor: 2.65,  label: 'Diesel car' },
+      electric: { consumption: 18.5, factor: 0.363, label: 'Electric car' },
+      none:     { consumption: 0,    factor: 0,     label: 'No car' }
+    };
+
+    function calculateFootprint() {
+      var kwh = parseFloat(document.getElementById('kwh').value) || 0;
+      var km = parseFloat(document.getElementById('km').value) || 0;
+      var type = document.getElementById('vehicle').value;
+      var v = VEHICLES[type];
+
+      var electricityKg = kwh * 0.363;
+      var carKg = (km / 100) * v.consumption * v.factor;
+      var totalKg = electricityKg + carKg;
+
+      document.getElementById('result').innerHTML =
+        'Estimated annual footprint: <strong>' + totalKg.toFixed(0) +
+        ' kg CO<sub>2</sub></strong> (' + (totalKg / 1000).toFixed(2) + ' tonnes)' +
+        '<br><span style="font-size:0.9rem;color:#6b7280;">Electricity: ' +
+        electricityKg.toFixed(0) + ' kg · ' + v.label + ': ' +
+        carKg.toFixed(0) + ' kg</span>';
+    }
+  </script>
+
+</body>
+</html>
