@@ -27,64 +27,6 @@
     }
     .soon { color: #6b7280; font-style: italic; }
     .contact-line { margin: 6px 0; }
-    .article-link {
-      display: block;
-      background: #f4f7f5;
-      border: 1px solid #d8e2dc;
-      border-radius: 8px;
-      padding: 18px 20px;
-      margin-top: 14px;
-      text-decoration: none;
-      color: #1a1a1a;
-    }
-    .article-link:hover { background: #eaf1ed; }
-    .article-link strong { color: #2d6a4f; display: block; font-size: 1.05rem; }
-    .article-link span { font-size: 0.92rem; color: #6b7280; }
-    .calc {
-      background: #f4f7f5;
-      border: 1px solid #d8e2dc;
-      border-radius: 8px;
-      padding: 24px;
-      margin-top: 16px;
-    }
-    .calc label {
-      display: block;
-      font-size: 0.95rem;
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    .calc input, .calc select {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #c5d2ca;
-      border-radius: 5px;
-      margin-bottom: 18px;
-      box-sizing: border-box;
-      background: #fff;
-    }
-    .calc button {
-      background: #2d6a4f;
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .calc button:hover { background: #245741; }
-    #result {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      min-height: 1.6em;
-    }
-    .source {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-top: 16px;
-      line-height: 1.6;
-    }
     footer {
       margin-top: 64px;
       padding-top: 20px;
@@ -100,6 +42,7 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="knowledge-hub.html">Knowledge Hub</a>
+    <a href="calculator.html">Calculator</a>
   </nav>
 
   <h1>Asif Alam</h1>
@@ -114,61 +57,6 @@
   <p>
     Packaging regulation (PPWR) · Biomass balance · Circular packaging models ·
     Life cycle assessment · Data analytics
-  </p>
-
-  <h2>Knowledge Hub</h2>
-
-  <a class="article-link" href="circular-economy-act.html">
-    <strong>The Circular Economy Act, Explained</strong>
-    <span>The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that.</span>
-  </a>
-
-  <a class="article-link" href="ppwr.html">
-    <strong>PPWR, Explained</strong>
-    <span>One change matters more than any individual target: packaging law stopped being a directive and became a regulation.</span>
-  </a>
-
-  <a class="article-link" href="mass-balance.html">
-    <strong>Mass Balance, Explained</strong>
-    <span>Why a certified sustainable product is chemically identical to the conventional one — and why that is the point, not a loophole.</span>
-  </a>
-
-  <h2>Carbon Footprint Calculator</h2>
-  <p>
-    An estimate of annual CO<sub>2</sub> emissions from household electricity and car
-    travel, using German emission factors and fleet-average consumption data.
-  </p>
-
-  <div class="calc">
-    <label for="kwh">Annual household electricity (kWh)</label>
-    <input type="number" id="kwh" placeholder="e.g. 2500" min="0">
-
-    <label for="vehicle">Vehicle type</label>
-    <select id="vehicle">
-      <option value="petrol">Petrol</option>
-      <option value="diesel">Diesel</option>
-      <option value="electric">Electric</option>
-      <option value="none">No car</option>
-    </select>
-
-    <label for="km">Annual distance driven (km)</label>
-    <input type="number" id="km" placeholder="e.g. 12000" min="0">
-
-    <button onclick="calculateFootprint()">Calculate</button>
-
-    <div id="result"></div>
-  </div>
-
-  <p class="source">
-    <strong>Method.</strong> Electricity: 363 g CO<sub>2</sub>/kWh (Umweltbundesamt,
-    German electricity mix, 2024). Fuel combustion: petrol 2.30 kg CO<sub>2</sub>/l,
-    diesel 2.65 kg CO<sub>2</sub>/l (GHG Protocol). Assumed fleet-average consumption:
-    petrol 7.7 l/100 km, diesel 6.8 l/100 km, electric 18.5 kWh/100 km (real-world
-    European data). Electric vehicles are charged on the German grid and are therefore
-    not zero-emission.<br><br>
-    <strong>Scope.</strong> Tank-to-wheel and operational electricity only. Excludes
-    fuel production (well-to-tank), vehicle and battery manufacturing, heating, food,
-    and goods. Indicative estimate — not a full life cycle assessment.
   </p>
 
   <h2>Projects</h2>
@@ -193,33 +81,6 @@
   <footer>
     Built and maintained by Asif Alam.
   </footer>
-
-  <script>
-    var VEHICLES = {
-      petrol:   { consumption: 7.7,  factor: 2.30,  label: 'Petrol car' },
-      diesel:   { consumption: 6.8,  factor: 2.65,  label: 'Diesel car' },
-      electric: { consumption: 18.5, factor: 0.363, label: 'Electric car' },
-      none:     { consumption: 0,    factor: 0,     label: 'No car' }
-    };
-
-    function calculateFootprint() {
-      var kwh = parseFloat(document.getElementById('kwh').value) || 0;
-      var km = parseFloat(document.getElementById('km').value) || 0;
-      var type = document.getElementById('vehicle').value;
-      var v = VEHICLES[type];
-
-      var electricityKg = kwh * 0.363;
-      var carKg = (km / 100) * v.consumption * v.factor;
-      var totalKg = electricityKg + carKg;
-
-      document.getElementById('result').innerHTML =
-        'Estimated annual footprint: <strong>' + totalKg.toFixed(0) +
-        ' kg CO<sub>2</sub></strong> (' + (totalKg / 1000).toFixed(2) + ' tonnes)' +
-        '<br><span style="font-size:0.9rem;color:#6b7280;">Electricity: ' +
-        electricityKg.toFixed(0) + ' kg · ' + v.label + ': ' +
-        carKg.toFixed(0) + ' kg</span>';
-    }
-  </script>
 
 </body>
 </html>
