@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Data Model for CCF and PCF Calculation — Asif Alam</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7; color: #1a1a1a; background: #f6f8f6;
+    max-width: 720px; margin: 0 auto; padding: 48px 24px;
+  }
+  nav { margin-bottom: 40px; font-size: 0.95rem; }
+  nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
+  nav a:hover { text-decoration: underline; }
+  h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid #d8e2dc; }
+  .lead { font-size: 1.1rem; color: #444; }
+  a { color: #2d6a4f; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; }
+
+  figure { margin: 32px 0 8px; }
+  svg { max-width: 100%; height: auto; color: #374151; display: block; }
+  figcaption {
+    font-size: 0.85rem; color: #6b7280; margin-top: 12px; line-height: 1.6;
+  }
+  .pcf-accent { color: #b45309; }
+
+  .note {
+    background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 8px;
+    padding: 20px 22px; margin: 20px 0; font-size: 0.92rem;
+  }
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="calculator.html">Calculator</a>
+  <a href="data.html">Data</a>
+</nav>
+
+<h1>A Data Model for CCF and PCF Calculation</h1>
+<p class="lead">
+  Corporate and Product Carbon Footprint numbers are usually presented as if they're
+  the same calculation at different scales. They're not — the point where they diverge
+  is the part worth designing carefully.
+</p>
+
+<h2>The mechanism</h2>
+<p>
+  Both CCF and PCF start from the same two inputs — activity data pulled from ERP
+  systems, and an emission factor matched to that activity — and run through the same
+  calculation step. They only diverge at the last hop: CCF sums the results; PCF
+  allocates them to a single product using a chosen allocation key. That fork is the
+  part a data model has to get right, because it's a methodology decision, not an
+  arithmetic one.
+</p>
+
+<figure>
+<svg viewBox="0 0 900 440" role="img" aria-label="Data flow diagram: ERP activity data and an emission factor library both feed a calculation engine, which then forks into two paths — CCF aggregates by scope, PCF allocates to a product via an allocation key.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- Box A: ERP / SAP -->
+  <rect x="20" y="203" width="150" height="74" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="95" y="234" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">ERP / SAP</text>
+  <text x="95" y="251" text-anchor="middle" font-size="10.5" fill="currentColor">source activity data</text>
+
+  <!-- Box B: Activity Data Store -->
+  <rect x="235" y="203" width="175" height="74" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="322" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Activity Data</text>
+  <text x="322" y="247" text-anchor="middle" font-size="10.5" fill="currentColor">qty, unit, date,</text>
+  <text x="322" y="261" text-anchor="middle" font-size="10.5" fill="currentColor">cost centre / product</text>
+
+  <!-- Box C: Emission Factor Library -->
+  <rect x="235" y="40" width="175" height="74" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="322" y="67" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Emission Factor</text>
+  <text x="322" y="83" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Library</text>
+  <text x="322" y="100" text-anchor="middle" font-size="10.5" fill="currentColor">versioned: valid-from / valid-to</text>
+
+  <!-- Box D: Calculation Engine -->
+  <rect x="485" y="195" width="175" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="572" y="230" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Calculation Engine</text>
+  <text x="572" y="248" text-anchor="middle" font-size="10.5" fill="currentColor">activity × matched factor</text>
+  <text x="572" y="263" text-anchor="middle" font-size="10.5" fill="currentColor">= CO₂e, tagged by scope</text>
+
+  <!-- Box E: CCF -->
+  <rect x="710" y="86" width="170" height="74" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="795" y="115" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">CCF</text>
+  <text x="795" y="132" text-anchor="middle" font-size="10.5" fill="currentColor">sum by scope,</text>
+  <text x="795" y="146" text-anchor="middle" font-size="10.5" fill="currentColor">by reporting period</text>
+
+  <!-- Box F: PCF (accent) -->
+  <rect x="710" y="326" width="170" height="74" rx="8" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="795" y="355" text-anchor="middle" font-size="12" font-weight="600" fill="#b45309">PCF</text>
+  <text x="795" y="372" text-anchor="middle" font-size="10.5" fill="#b45309">allocate to one product</text>
+  <text x="795" y="386" text-anchor="middle" font-size="10.5" fill="#b45309">via allocation key</text>
+
+  <!-- Arrow A -> B -->
+  <line x1="170" y1="240" x2="228" y2="240" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="199" y="228" text-anchor="middle" font-size="10" fill="currentColor">extract</text>
+
+  <!-- Arrow C -> D -->
+  <line x1="410" y1="90" x2="500" y2="193" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="500" y="140" text-anchor="middle" font-size="10" fill="currentColor">factor matched</text>
+  <text x="500" y="152" text-anchor="middle" font-size="10" fill="currentColor">by activity date</text>
+
+  <!-- Arrow B -> D -->
+  <line x1="410" y1="240" x2="483" y2="240" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrow D -> E -->
+  <line x1="655" y1="205" x2="715" y2="145" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="700" y="185" text-anchor="middle" font-size="10" fill="currentColor">aggregate</text>
+
+  <!-- Arrow D -> F (accent) -->
+  <line x1="655" y1="278" x2="715" y2="335" stroke="#b45309" stroke-width="2" marker-end="url(#arrowAccent)"/>
+  <text x="702" y="308" text-anchor="middle" font-size="10" fill="#b45309">allocate by volume,</text>
+  <text x="702" y="320" text-anchor="middle" font-size="10" fill="#b45309">revenue, or mass</text>
+</svg>
+<figcaption>
+  CCF and PCF share the same activity data and emission factor library, and the same
+  calculation step — they diverge only at the last hop, where PCF requires choosing an
+  allocation key that CCF never needs.
+</figcaption>
+</figure>
+
+<h2>Why the fork matters</h2>
+<p>
+  It's tempting to treat PCF as "CCF divided by units produced." That only works if a
+  single product consumes a company's entire footprint — true for a single-product
+  factory, false almost everywhere else. In practice, shared emissions (a shared
+  production line, shared logistics, corporate overhead) have to be allocated down to
+  one product using a defensible key: production volume, revenue share, or mass —
+  each of which produces a different PCF for the same product. The allocation key isn't
+  a technical detail the engineering team picks; it's a methodology decision with real
+  disclosure consequences, and the data model needs to keep it visible and swappable,
+  not buried in a calculation nobody can re-derive.
+</p>
+
+<h2>Why the factor library is versioned, not static</h2>
+<div class="note">
+  A calculation engine that looks up "today's" emission factor will silently misstate
+  history the moment a factor is updated — recalculating a 2024 activity with a 2026
+  factor produces a number that was never true. Emission factors need a validity window
+  (<code>valid_from</code> / <code>valid_to</code>), and the calculation engine has to
+  match on the activity's date, not the calculation's run date. This is the same failure
+  mode as hardcoding a regulatory threshold instead of dating it — see
+  <a href="regulation-to-product.html">what sustainability regulations actually require
+  of software products</a>.
+</div>
+
+<footer>
+  Written by Asif Alam.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+</body>
+</html>

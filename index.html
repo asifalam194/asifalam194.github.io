@@ -155,6 +155,19 @@
   .j-org { display: block; font-size: 0.82rem; color: #2d6a4f; font-weight: 500; margin-bottom: 6px; }
   .j-desc { font-size: 0.82rem; color: #6b7280; line-height: 1.55; margin: 0; }
 
+  .skills-group { margin-bottom: 22px; }
+  .skills-group:last-child { margin-bottom: 0; }
+  .skills-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.2px;
+    color: #6b7280; font-weight: 600; margin: 0 0 10px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    display: inline-block; background: #fff;
+    border: 1px solid #e2e8e5; border-radius: 20px;
+    padding: 6px 14px; font-size: 0.85rem; color: #1a1a1a;
+  }
+
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .card {
     display: block; background: #fff;
@@ -325,6 +338,50 @@
   </section>
 
   <section>
+    <h3 class="sec">Skills &amp; Tools</h3>
+    <div class="skills-group">
+      <p class="skills-label">Sustainability &amp; Environment</p>
+      <div class="skill-tags">
+        <span class="skill-tag">LCA</span>
+        <span class="skill-tag">ISO 14040/14044</span>
+        <span class="skill-tag">Circular Economy</span>
+        <span class="skill-tag">Product Carbon Footprint</span>
+        <span class="skill-tag">Environmental Impact Assessment</span>
+      </div>
+    </div>
+    <div class="skills-group">
+      <p class="skills-label">Regulation &amp; Compliance</p>
+      <div class="skill-tags">
+        <span class="skill-tag">PPWR</span>
+        <span class="skill-tag">EU Microplastics Regulation</span>
+        <span class="skill-tag">REDcert2</span>
+        <span class="skill-tag">Mass Balance</span>
+        <span class="skill-tag">Chain of Custody</span>
+      </div>
+    </div>
+    <div class="skills-group">
+      <p class="skills-label">Data &amp; Software</p>
+      <div class="skill-tags">
+        <span class="skill-tag">OpenLCA</span>
+        <span class="skill-tag">GaBi</span>
+        <span class="skill-tag">Sphera</span>
+        <span class="skill-tag">SAP</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Excel</span>
+      </div>
+    </div>
+    <div class="skills-group">
+      <p class="skills-label">Collaboration</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Cross-functional coordination</span>
+        <span class="skill-tag">Stakeholder engagement</span>
+        <span class="skill-tag">Training delivery</span>
+        <span class="skill-tag">Knowledge management</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h3 class="sec">Projects</h3>
     <div class="cards">
       <a class="card" href="cottonid-lca.html">
@@ -341,6 +398,11 @@
         <span class="kicker">Tool</span>
         <strong>Carbon Footprint Calculator</strong>
         <span>Household electricity and car travel, using Umweltbundesamt emission factors and German fleet-average consumption data.</span>
+      </a>
+      <a class="card" href="ccf-pcf-data-model.html">
+        <span class="kicker">Data model</span>
+        <strong>A Data Model for CCF and PCF Calculation</strong>
+        <span>Corporate and Product Carbon Footprint share the same calculation engine — they diverge at one hop, and that hop is a methodology decision, not an arithmetic one.</span>
       </a>
     </div>
     <p class="soon">Comparative carbon analysis of data centres and AI workloads — in development.</p>
@@ -360,6 +422,10 @@
       <a class="card" href="mass-balance.html">
         <strong>Mass Balance, Explained</strong>
         <span>Why a certified sustainable product is chemically identical to the conventional one — and why that is the point, not a loophole.</span>
+      </a>
+      <a class="card" href="regulation-to-product.html">
+        <strong>What Sustainability Regulations Actually Require of Software Products</strong>
+        <span>Regulations don't ship features. Product teams do — and the translation from one to the other is where most compliance products quietly get it wrong.</span>
       </a>
     </div>
   </section>

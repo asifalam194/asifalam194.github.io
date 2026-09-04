@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Sustainability Regulations Actually Require of Software Products — Asif Alam</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7; color: #1a1a1a; background: #f6f8f6;
+    max-width: 680px; margin: 0 auto; padding: 48px 24px;
+  }
+  nav { margin-bottom: 40px; font-size: 0.95rem; }
+  nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
+  nav a:hover { text-decoration: underline; }
+  h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid #d8e2dc; }
+  .lead { font-size: 1.1rem; color: #444; }
+  a { color: #2d6a4f; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 10px; }
+
+  .example {
+    background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 8px;
+    padding: 24px 26px; margin: 28px 0;
+  }
+  .example .layer-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #6b7280; margin-bottom: 14px;
+  }
+  .example p:last-child { margin-bottom: 0; }
+
+  .checklist { padding-left: 0; list-style: none; }
+  .checklist li {
+    padding-left: 30px; position: relative; margin-bottom: 14px;
+  }
+  .checklist li::before {
+    content: "→"; position: absolute; left: 0; color: #2d6a4f; font-weight: 700;
+  }
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="calculator.html">Calculator</a>
+  <a href="data.html">Data</a>
+</nav>
+
+<h1>What Sustainability Regulations Actually Require of Software Products</h1>
+<p class="lead">Regulations don't ship features. Product teams do — and the translation from one to the other is where most compliance products quietly get it wrong.</p>
+
+<h2>A regulation is not a spec</h2>
+<p>
+  It's tempting to treat a regulation's text as something close to a requirements
+  document — read it, extract the rules, build the fields. But a regulation is written
+  for legal certainty, not for implementation. It's ambiguous where legislators couldn't
+  agree, precise only where enforcement demanded it, and structured around obligations
+  and dates, not around data models or user flows.
+</p>
+<p>
+  Three things a regulation gives a product team directly: the obligations (what must be
+  true), the evidence requirements (what must be documented and provable), and the dates
+  (when each obligation becomes enforceable). Three things it never gives you: the data
+  model, the interface, or the prioritization. Those are product decisions the regulation
+  is silent on — and silence gets filled by whoever builds first, well or badly.
+</p>
+
+<h2>A concrete case: PPWR's conformity requirement</h2>
+<div class="example">
+  <div class="layer-label">From regulation to requirement</div>
+  <p>
+    <a href="ppwr.html">The EU's Packaging and Packaging Waste Regulation</a> requires
+    that packaging "undergo a conformity assessment," backed by an EU declaration of
+    conformity and technical documentation. That's one sentence of law. It is not a
+    product requirement — it's a destination three or four requirements away.
+  </p>
+  <p>
+    Read literally as a feature, it becomes "add a document upload field." Read as an
+    obligation a business has to sustain over years, it becomes something closer to:
+    a versioned document store tied to a SKU, not a product; an audit trail proving
+    which version of a declaration was live on which date; and a way to track that a
+    conformity record itself has a shelf life — because packaging changes, suppliers
+    change, and a declaration filed in 2026 doesn't stay true forever.
+  </p>
+  <p>
+    Same sentence of law. Very different systems, depending on whether the team modelled
+    the obligation or just the document.
+  </p>
+</div>
+
+<h2>The trap: building for today's numbers</h2>
+<p>
+  PPWR's recycled-content targets aren't a single number — they're 30% for beverage
+  bottles, 30% for other contact-sensitive PET packaging, 10% for other contact-sensitive
+  plastics, 35% for everything else, from 2030 — and they rise again by 2040. A team that
+  hardcodes "30%" as a constant has built something that works today and breaks
+  silently the moment the threshold changes or a new packaging category is added.
+</p>
+<p>
+  This is the pattern across most sustainability regulation: today's number is a snapshot
+  of a value that moves on a known schedule, or via delegated acts that aren't written
+  yet. Design-for-recycling criteria under PPWR, for instance, are still being adopted
+  through delegated acts due in 2028 — the obligation exists in law now; the detailed
+  rule doesn't yet. A product built only for what's currently in force has already
+  started accumulating technical debt against a law that hasn't finished being written.
+</p>
+
+<h2>What this means for product requirements</h2>
+<ul class="checklist">
+  <li>Model obligations as versioned, dated rules — not hardcoded constants — so a threshold change is a data update, not a release.</li>
+  <li>Treat evidence and documentation as first-class objects with their own lifecycle, not attachments bolted onto an existing record.</li>
+  <li>Separate "what the law requires" from "what we can enforce today" — build for the version of the regulation that's coming, not just the one that's in force.</li>
+  <li>Assume amendment, not stability — delegated acts, phased dates, and national derogations are the norm in EU sustainability law, not the exception.</li>
+</ul>
+
+<h2>Why this matters beyond compliance software</h2>
+<p>
+  I've done this translation from the regulatory side, not the product side —
+  most recently assessing a 1,000+ SKU packaging portfolio against PPWR requirements,
+  where the gap between "what the regulation says" and "what a system needs to track"
+  was the actual work. The pattern above is what that gap looks like from the inside:
+  regulations are stable in structure and unstable in detail, and the products built on
+  top of them need to be designed for that shape, not just for this year's numbers.
+</p>
+
+<footer>
+  Written by Asif Alam.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+</body>
+</html>

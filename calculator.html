@@ -64,6 +64,39 @@
       margin-top: 20px;
       line-height: 1.6;
     }
+    .product-notes {
+      margin-top: 44px;
+      background: #f4f7f5;
+      border: 1px solid #d8e2dc;
+      border-radius: 8px;
+      padding: 26px 24px;
+    }
+    .product-notes h2 {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+    .product-notes .pn-sub {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin: 0 0 22px;
+    }
+    .pn-block { margin-bottom: 20px; }
+    .pn-block:last-child { margin-bottom: 0; }
+    .pn-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #2d6a4f;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+    .pn-block p, .pn-block ul {
+      font-size: 0.92rem;
+      color: #374151;
+      margin: 0;
+    }
+    .pn-block ul { padding-left: 18px; }
+    .pn-block li { margin-bottom: 6px; }
     footer {
       margin-top: 64px;
       padding-top: 20px;
@@ -120,6 +153,51 @@
     fuel production (well-to-tank), vehicle and battery manufacturing, heating, food,
     and goods. Indicative estimate — not a full life cycle assessment.
   </p>
+
+  <div class="product-notes">
+    <h2>Product notes</h2>
+    <p class="pn-sub">Why this tool is built the way it is.</p>
+
+    <div class="pn-block">
+      <p class="pn-label">Who it's for</p>
+      <p>
+        Someone who wants a directional answer in under a minute — not a household
+        auditor filling in a 20-field form, and not a compliance team needing a
+        certifiable number. Three inputs, one output. The trade-off is precision for
+        completion.
+      </p>
+    </div>
+
+    <div class="pn-block">
+      <p class="pn-label">Data &amp; assumptions</p>
+      <p>
+        Electricity uses the Umweltbundesamt German grid-mix factor (363 g CO<sub>2</sub>/kWh,
+        2024). Fuel combustion uses GHG Protocol factors against real-world European
+        fleet-average consumption, not manufacturer test-cycle figures — those
+        consistently understate on-road use. All factors are static and hard-coded
+        rather than user-editable, which keeps the tool simple but means it silently
+        goes stale as grid mix and fleet averages shift year to year.
+      </p>
+    </div>
+
+    <div class="pn-block">
+      <p class="pn-label">Trade-offs</p>
+      <ul>
+        <li>Tank-to-wheel and operational electricity only — no well-to-tank, manufacturing, heating, or diet. Scope was cut to keep the input form to three fields.</li>
+        <li>One national grid factor, not a regional or supplier-specific one — precision was sacrificed for a tool anyone in Germany can use without knowing their utility.</li>
+        <li>Labelled "indicative estimate," not an LCA — the risk with any simplified calculator is implied precision it can't back up, so the copy works to prevent that.</li>
+      </ul>
+    </div>
+
+    <div class="pn-block">
+      <p class="pn-label">What I'd build next</p>
+      <ul>
+        <li>Add heating/gas — usually the single largest household emissions source, and its absence is the biggest gap in the current scope.</li>
+        <li>Version the emission factors with a visible "as of" date instead of burying them in a footnote, so staleness is a visible property of the data, not a hidden one.</li>
+        <li>Show the result against a national average, so a number in isolation becomes a number with context.</li>
+      </ul>
+    </div>
+  </div>
 
   <footer>
     Built and maintained by Asif Alam.
