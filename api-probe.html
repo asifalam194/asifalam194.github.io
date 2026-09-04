@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API probe — free data sources</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.55; color: #1a1a1a; background: #fdfdfb;
+    max-width: 900px; margin: 0 auto; padding: 36px 20px;
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .sub { color: #6b7280; font-size: 0.92rem; margin-top: 0; }
+  #summary {
+    background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 8px;
+    padding: 12px 16px; margin: 18px 0; font-weight: 600; font-size: 0.95rem;
+  }
+  .row {
+    border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 10px; background: #fff;
+  }
+  .row.pass { border-left: 5px solid #2d6a4f; }
+  .row.fail { border-left: 5px solid #b91c1c; }
+  .row.wait { border-left: 5px solid #9ca3af; }
+  .head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .nm { font-weight: 600; font-size: 0.98rem; }
+  .badge {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 9px; border-radius: 4px; text-transform: uppercase;
+    align-self: flex-start; white-space: nowrap;
+  }
+  .pass .badge { background: #e3f2e9; color: #1d5138; }
+  .fail .badge { background: #fdeaea; color: #991b1b; }
+  .wait .badge { background: #f3f4f6; color: #6b7280; }
+  .what { font-size: 0.85rem; color: #6b7280; margin-top: 2px; }
+  .out {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem; background: #f9fafb; border: 1px solid #eef0f2;
+    border-radius: 5px; padding: 8px 10px; margin-top: 9px;
+    white-space: pre-wrap; word-break: break-word; color: #374151;
+  }
+</style>
+</head>
+<body>
+
+<h1>API probe — free data sources</h1>
+<p class="sub">
+  Each source is called directly from this browser. PASS means it is usable on a static
+  site with no key and no server. Diagnostic file only.
+</p>
+
+<div id="summary">Running tests…</div>
+<div id="rows"></div>
+
+<script>
+var TESTS = [
+  {
+    name: "Eurostat — Statistics API",
+    what: "EU circular material use rate (control test — known working)",
+    url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/cei_srm030?format=JSON&lang=EN&geo=EU27_2020",
+    parse: function (d) {
+      var idx = d.dimension.time.category.index;
+      var ys = Object.keys(idx).sort(function (a, b) { return idx[a] - idx[b]; });
+      var last = ys[ys.length - 1];
+      return "latest " + last + " = " + d.value[String(idx[last])] + "%";
+    }
+  },
+  {
+    name: "World Bank — population (control)",
+    what: "Confirms the World Bank API itself is reachable",
+    url: "https://api.worldbank.org/v2/country/DEU/indicator/SP.POP.TOTL?format=json&per_page=1&mrnev=1",
+    parse: function (d) {
+      if (!Array.isArray(d) || d.length < 2 || !d[1]) throw new Error(JSON.stringify(d[0]).substring(0, 160));
+      var r = d[1][0];
+      return r.country.value + " " + r.date + " = " + r.value;
+    }
+  },
+  {
+    name: "World Bank — CO2 per capita (AR5 code)",
+    what: "EN.GHG.CO2.PC.CE.AR5 — newer emissions series",
+    url: "https://api.worldbank.org/v2/country/DEU;USA;CHN;IND;WLD/indicator/EN.GHG.CO2.PC.CE.AR5?format=json&mrnev=1",
+    parse: function (d) {
+      if (!Array.isArray(d) || d.length < 2 || !d[1]) throw new Error(JSON.stringify(d[0]).substring(0, 160));
+      return d[1].map(function (r) {
+        return r.country.value + " " + r.date + ": " + r.value;
+      }).join("\n");
+    }
+  },
+  {
+    name: "World Bank — CO2 per capita (legacy code)",
+    what: "EN.ATM.CO2E.PC — older series, may be retired",
+    url: "https://api.worldbank.org/v2/country/DEU;USA;CHN;IND;WLD/indicator/EN.ATM.CO2E.PC?format=json&mrnev=1",
+    parse: function (d) {
+      if (!Array.isArray(d) || d.length < 2 || !d[1]) throw new Error(JSON.stringify(d[0]).substring(0, 160));
+      return d[1].map(function (r) {
+        return r.country.value + " " + r.date + ": " + r.value;
+      }).join("\n");
+    }
+  },
+  {
+    name: "World Bank — municipal solid waste per capita",
+    what: "Testing whether a waste series exists in the Indicators API",
+    url: "https://api.worldbank.org/v2/country/DEU/indicator/EN.MSW.GEN.PC?format=json&mrnev=1",
+    parse: function (d) {
+      if (!Array.isArray(d) || d.length < 2 || !d[1]) throw new Error(JSON.stringify(d[0]).substring(0, 160));
+      var r = d[1][0];
+      return r.country.value + " " + r.date + " = " + r.value;
+    }
+  },
+  {
+    name: "Fraunhofer Energy-Charts — power mix",
+    what: "Live German generation mix, no key",
+    url: "https://api.energy-charts.info/public_power?country=de",
+    parse: function (d) {
+      var keys = Object.keys(d);
+      var n = d.production_types ? d.production_types.length : 0;
+      return "keys: " + keys.join(", ").substring(0, 120) + "\nproduction types: " + n;
+    }
+  },
+  {
+    name: "Fraunhofer Energy-Charts — CO2 intensity",
+    what: "Live grid carbon intensity for Germany",
+    url: "https://api.energy-charts.info/co2eq?country=de",
+    parse: function (d) {
+      var keys = Object.keys(d);
+      return "keys: " + keys.join(", ").substring(0, 200);
+    }
+  },
+  {
+    name: "UK NESO — Carbon Intensity API",
+    what: "Live GB grid carbon intensity (wrong country, but a reference)",
+    url: "https://api.carbonintensity.org.uk/intensity",
+    parse: function (d) {
+      var i = d.data[0].intensity;
+      return "actual " + i.actual + " gCO2/kWh · index " + i.index;
+    }
+  },
+  {
+    name: "Open-Meteo — air quality",
+    what: "Live PM2.5 and PM10 for Münster, no key",
+    url: "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=51.96&longitude=7.63&current=pm10,pm2_5",
+    parse: function (d) {
+      return "PM2.5 " + d.current.pm2_5 + " · PM10 " + d.current.pm10 + " (" + d.current.time + ")";
+    }
+  },
+  {
+    name: "Our World in Data — chart data",
+    what: "CO2 per capita series as CSV",
+    url: "https://ourworldindata.org/grapher/co2-per-capita.csv?country=~DEU",
+    text: true,
+    parse: function (t) {
+      var lines = t.split("\n");
+      return "rows: " + lines.length + "\n" + lines.slice(0, 3).join("\n");
+    }
+  },
+  {
+    name: "NOAA — global CO2 trend",
+    what: "Atmospheric CO2 concentration, plain CSV",
+    url: "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_trend_gl.csv",
+    text: true,
+    parse: function (t) {
+      var lines = t.trim().split("\n");
+      return "last line: " + lines[lines.length - 1];
+    }
+  }
+];
+
+var rowsEl = document.getElementById("rows");
+var done = 0, passed = 0;
+
+TESTS.forEach(function (t, i) {
+  var el = document.createElement("div");
+  el.className = "row wait";
+  el.innerHTML =
+    '<div class="head"><div><div class="nm">' + t.name + '</div>'
+    + '<div class="what">' + t.what + '</div></div>'
+    + '<span class="badge">testing</span></div>'
+    + '<div class="out">' + t.url + '</div>';
+  rowsEl.appendChild(el);
+
+  function finish(ok, msg) {
+    done++;
+    if (ok) passed++;
+    el.className = "row " + (ok ? "pass" : "fail");
+    el.querySelector(".badge").textContent = ok ? "pass" : "fail";
+    el.querySelector(".out").textContent = t.url + "\n\n" + msg;
+    document.getElementById("summary").textContent =
+      done + " of " + TESTS.length + " tested · " + passed + " usable";
+  }
+
+  fetch(t.url)
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + r.statusText);
+      return t.text ? r.text() : r.json();
+    })
+    .then(function (d) {
+      try {
+        finish(true, t.parse(d));
+      } catch (e) {
+        finish(false, "Reached the server, but could not read the data:\n" + e.message);
+      }
+    })
+    .catch(function (e) {
+      finish(false, "Blocked or unreachable: " + e.message
+        + "\n(usually means CORS is not allowed from a browser)");
+    });
+});
+</script>
+
+</body>
+</html>
