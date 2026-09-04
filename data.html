@@ -118,3 +118,125 @@
         <div><div class="name">European Union</div><div class="meta">Eurostat · cei_srm030</div></div>
       </div>
       <div class="stat de loading" id="a2">
+        <div class="value">Loading…</div>
+        <div><div class="name">Germany</div><div class="meta">Eurostat · cei_srm030</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">Packaging waste recycling rate — all packaging</div>
+    <div class="pair">
+      <div class="stat eu loading" id="b1">
+        <div class="value">Loading…</div>
+        <div><div class="name">European Union</div><div class="meta">Eurostat · cei_wm020</div></div>
+      </div>
+      <div class="stat de loading" id="b2">
+        <div class="value">Loading…</div>
+        <div><div class="name">Germany</div><div class="meta">Eurostat · cei_wm020</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">Packaging waste recycling rate — plastic only</div>
+    <div class="pair">
+      <div class="stat eu loading" id="c1">
+        <div class="value">Loading…</div>
+        <div><div class="name">European Union</div><div class="meta">Eurostat · cei_wm020</div></div>
+      </div>
+      <div class="stat de loading" id="c2">
+        <div class="value">Loading…</div>
+        <div><div class="name">Germany</div><div class="meta">Eurostat · cei_wm020</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <h2>What these show</h2>
+    <p>
+      The circular material use rate is the share of material entering the economy that
+      comes from recycling rather than new extraction. It is the broadest single measure
+      of how circular an economy actually is, and it moves slowly.
+    </p>
+    <p>
+      The two packaging figures show where the pressure sits. Overall packaging recycling
+      looks reasonably healthy in both. Plastic packaging does not — and that matters,
+      because the <a href="ppwr.html">PPWR</a> requires binding shares of post-consumer
+      recycled plastic from 2030, and only material actually collected and recycled can
+      supply them.
+    </p>
+    <p>
+      The distance between the total and the plastic figure is the supply bottleneck the
+      <a href="circular-economy-act.html">Circular Economy Act</a> is meant to close.
+    </p>
+  </div>
+
+  <p class="src">
+    <strong>Source and method.</strong> Data retrieved live from the Eurostat Statistics
+    API (dissemination API, JSON-stat format) each time this page is opened. EU figures use
+    the EU27 aggregate. Each figure shows the most recent year Eurostat reports a value,
+    which is not the current year — packaging statistics are published roughly two years in
+    arrears, so the EU and Germany figures may carry different years. Packaging recycling
+    rates use the unit defined for the 2025 target and onwards. Nothing is stored or
+    adjusted here; if Eurostat revises a figure, this page changes with it.
+  </p>
+
+</main>
+
+<footer>
+  Built and maintained by Asif Alam.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+<script>
+var BASE = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/";
+
+function latestValue(data) {
+  var ids = data.id || [];
+  var sizes = data.size || [];
+  for (var i = 0; i < ids.length; i++) {
+    if (ids[i] !== "time" && sizes[i] !== 1) throw new Error("ambiguous");
+  }
+  var idx = data.dimension.time.category.index;
+  var years = Object.keys(idx).sort(function (a, b) { return idx[a] - idx[b]; });
+  for (var k = years.length - 1; k >= 0; k--) {
+    var v = data.value[String(idx[years[k]])];
+    if (v !== undefined && v !== null) return { year: years[k], value: v };
+  }
+  throw new Error("no values");
+}
+
+function render(id, query, label) {
+  var el = document.getElementById(id);
+  fetch(BASE + query)
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (d) {
+      var got = latestValue(d);
+      el.classList.remove("loading");
+      el.querySelector(".value").innerHTML = got.value + "<small>%</small>";
+      el.querySelector(".meta").textContent = "Eurostat · " + got.year + " · live";
+    })
+    .catch(function () {
+      el.classList.remove("loading");
+      el.classList.add("err");
+      el.querySelector(".value").textContent = "Unavailable";
+      el.querySelector(".meta").textContent = "Eurostat request failed";
+    });
+}
+
+render("a1", "cei_srm030?format=JSON&lang=EN&geo=EU27_2020");
+render("a2", "cei_srm030?format=JSON&lang=EN&geo=DE");
+
+render("b1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W1501");
+render("b2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W1501");
+
+render("c1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W150102");
+render("c2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W150102");
+</script>
+
+</body>
+</html>
