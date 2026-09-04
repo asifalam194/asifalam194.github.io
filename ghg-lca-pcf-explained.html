@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHG, LCA, and PCF: What's the Difference? — Asif Alam</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7; color: #1a1a1a; background: #f6f8f6;
+    max-width: 720px; margin: 0 auto; padding: 48px 24px;
+  }
+  nav { margin-bottom: 40px; font-size: 0.95rem; }
+  nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
+  nav a:hover { text-decoration: underline; }
+  h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid #d8e2dc; }
+  .lead { font-size: 1.1rem; color: #444; }
+  a { color: #2d6a4f; }
+
+  .term-card {
+    background: #fff; border: 1px solid #e2e8e5; border-radius: 8px;
+    padding: 20px 22px; margin-bottom: 14px;
+  }
+  .term-card .term-name { font-weight: 700; color: #2d6a4f; font-size: 1.05rem; }
+  .term-card .term-full { font-size: 0.85rem; color: #6b7280; margin-bottom: 8px; }
+  .term-card p { margin: 0; font-size: 0.95rem; }
+
+  figure { margin: 32px 0 8px; }
+  svg { max-width: 100%; height: auto; color: #374151; display: block; }
+  figcaption { font-size: 0.85rem; color: #6b7280; margin-top: 12px; line-height: 1.6; }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left; padding: 10px 12px; border-bottom: 1px solid #e2e8e5;
+    vertical-align: top;
+  }
+  th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; }
+  td strong { color: #1a1a1a; }
+
+  .note {
+    background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 8px;
+    padding: 20px 22px; margin: 20px 0; font-size: 0.92rem;
+  }
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="calculator.html">Calculator</a>
+  <a href="data.html">Data</a>
+</nav>
+
+<h1>GHG, LCA, and PCF: What's the Difference?</h1>
+<p class="lead">
+  These three terms get used almost interchangeably in sustainability conversations.
+  They shouldn't be — each one answers a different question, and mixing them up leads
+  to the wrong number being used for the wrong decision.
+</p>
+
+<h2>The three terms, in plain words</h2>
+
+<div class="term-card">
+  <div class="term-name">GHG accounting</div>
+  <div class="term-full">Greenhouse Gas accounting</div>
+  <p>
+    How much a whole organisation emits, over a year, across everything it does.
+    Split into Scope 1 (emissions the company creates directly), Scope 2 (emissions
+    from the electricity it buys), and Scope 3 (everything else in its value chain —
+    suppliers, transport, product use, waste). This is the number a company reports
+    for its climate targets.
+  </p>
+</div>
+
+<div class="term-card">
+  <div class="term-name">LCA</div>
+  <div class="term-full">Life Cycle Assessment</div>
+  <p>
+    The full environmental picture of one product, from raw material to disposal —
+    and not just carbon. A proper LCA also looks at water use, land use, toxicity,
+    eutrophication, and several other impact categories. It's the broadest of the
+    three: one product, many kinds of impact.
+  </p>
+</div>
+
+<div class="term-card">
+  <div class="term-name">PCF</div>
+  <div class="term-full">Product Carbon Footprint</div>
+  <p>
+    The carbon slice of an LCA. Same life-cycle thinking — raw material to disposal —
+    but narrowed to just one impact category: greenhouse gas emissions. If an LCA
+    asks "what's this product's total environmental impact," a PCF asks only "how much
+    CO<sub>2</sub>e does this product's life cycle emit."
+  </p>
+</div>
+
+<h2>How they relate</h2>
+<p>
+  The confusion mostly comes down to two questions people don't separate: <strong>what
+  am I measuring</strong> — a whole organisation, or a single product — and
+  <strong>what am I counting</strong> — just carbon, or every environmental impact.
+  Laid out on those two axes, the three terms stop overlapping:
+</p>
+
+<figure>
+<svg viewBox="0 0 640 360" role="img" aria-label="A two-by-two grid. Columns are Product and Organisation; rows are Carbon only and All impacts. Product plus carbon only is PCF. Product plus all impacts is LCA. Organisation plus carbon only is GHG accounting. Organisation plus all impacts is rarely done in practice.">
+  <!-- Column headers -->
+  <text x="290" y="28" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Product</text>
+  <text x="510" y="28" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor">Organisation</text>
+
+  <!-- Row headers -->
+  <text x="100" y="115" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">Carbon only</text>
+  <text x="100" y="260" text-anchor="middle" font-size="12" font-weight="600" fill="currentColor">All impacts</text>
+
+  <!-- Grid cells -->
+  <rect x="180" y="55" width="220" height="120" rx="8" fill="none" stroke="#2d6a4f" stroke-width="2"/>
+  <text x="290" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#2d6a4f">PCF</text>
+  <text x="290" y="130" text-anchor="middle" font-size="10.5" fill="currentColor">ISO 14067</text>
+  <text x="290" y="145" text-anchor="middle" font-size="10.5" fill="currentColor">one product, carbon only</text>
+
+  <rect x="420" y="55" width="220" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="530" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">GHG Accounting</text>
+  <text x="530" y="123" text-anchor="middle" font-size="10.5" fill="currentColor">(CCF)</text>
+  <text x="530" y="140" text-anchor="middle" font-size="10.5" fill="currentColor">GHG Protocol / ISO 14064</text>
+  <text x="530" y="155" text-anchor="middle" font-size="10.5" fill="currentColor">whole org, carbon only</text>
+
+  <rect x="180" y="200" width="220" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="290" y="255" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">LCA</text>
+  <text x="290" y="275" text-anchor="middle" font-size="10.5" fill="currentColor">ISO 14040/14044</text>
+  <text x="290" y="290" text-anchor="middle" font-size="10.5" fill="currentColor">one product, every impact</text>
+
+  <rect x="420" y="200" width="220" height="120" rx="8" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+  <text x="530" y="255" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">rarely done</text>
+  <text x="530" y="272" text-anchor="middle" font-size="10.5" fill="currentColor" opacity="0.7">in practice</text>
+</svg>
+<figcaption>
+  PCF and LCA are both product-level; GHG accounting is organisation-level. PCF and GHG
+  accounting are both carbon-only; LCA is the only one of the three that covers every
+  environmental impact category, not just climate.
+</figcaption>
+</figure>
+
+<h2>The ISO standards, compared</h2>
+<p>
+  Each of these has its own ISO standard behind it — and one more (ISO 14025) that
+  builds on top of them for public reporting.
+</p>
+
+<table>
+  <tr>
+    <th>Standard</th>
+    <th>Covers</th>
+    <th>Scope</th>
+  </tr>
+  <tr>
+    <td><strong>ISO 14040</strong></td>
+    <td>LCA — principles and framework. Defines what an LCA is and its four phases.</td>
+    <td>Product</td>
+  </tr>
+  <tr>
+    <td><strong>ISO 14044</strong></td>
+    <td>LCA — requirements and guidelines. The detailed how-to that 14040 sets the frame for. Always cited alongside 14040.</td>
+    <td>Product</td>
+  </tr>
+  <tr>
+    <td><strong>ISO 14067</strong></td>
+    <td>Carbon footprint of products. Uses the same life-cycle method as 14040/44, narrowed to greenhouse gases only.</td>
+    <td>Product</td>
+  </tr>
+  <tr>
+    <td><strong>ISO 14064</strong></td>
+    <td>GHG quantification and verification. Part 1 covers organisation-level inventories, Part 2 covers projects, Part 3 covers verification. The ISO counterpart to the (more widely used) GHG Protocol.</td>
+    <td>Organisation / project</td>
+  </tr>
+  <tr>
+    <td><strong>ISO 14025</strong></td>
+    <td>Environmental Product Declarations (EPDs). A standardised, third-party-verified format for publishing LCA results — it doesn't run the assessment itself, it standardises how the results get reported.</td>
+    <td>Product</td>
+  </tr>
+</table>
+
+<div class="note">
+  A quick way to hold this: <strong>14040/14044</strong> is the method, <strong>14067</strong>
+  is that same method pointed only at carbon, and <strong>14025</strong> is the reporting
+  format you publish the result in. <strong>14064</strong> sits in a different lane
+  entirely — it's not about products at all, it's how a company counts its own emissions.
+</div>
+
+<h2>Why the distinction actually matters</h2>
+<p>
+  Using the wrong one isn't just a labelling error. A company reporting its GHG
+  inventory (Scope 1–3) has told you nothing about which of its products is worse for
+  water or land use — that needs an LCA. A supplier quoting a "carbon footprint" for one
+  product hasn't told you their company-wide emissions — that's a PCF, not GHG
+  accounting. And a PCF on its own, however accurate, is silent on everything an LCA
+  would have caught outside of carbon. Each one answers a real question — just not the
+  same one.
+</p>
+<p>
+  For a closer look at how a PCF is actually calculated — and where it structurally
+  diverges from a company-wide GHG number — see
+  <a href="ccf-pcf-data-model.html">A Data Model for CCF and PCF Calculation</a>.
+</p>
+
+<footer>
+  Written by Asif Alam.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+</body>
+</html>
