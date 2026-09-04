@@ -127,6 +127,33 @@
     border-bottom: 3px solid #2d6a4f;
   }
 
+  .journey { margin-top: 4px; }
+  .j-row {
+    display: flex; gap: 24px; align-items: flex-start;
+    border-left: 2px solid #d8e2dc;
+    margin-left: 6px; padding: 0 0 30px 26px;
+    position: relative;
+  }
+  .j-row:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .j-row::before {
+    content: ""; position: absolute; left: -7px; top: 3px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #2d6a4f; border: 2px solid #f6f8f6;
+  }
+  .j-row.current::before { background: #b45309; }
+  .j-year {
+    flex: 0 0 118px; font-size: 0.82rem; font-weight: 600;
+    color: #6b7280; padding-top: 2px;
+  }
+  .j-content strong { display: block; font-size: 1.02rem; color: #1a1a1a; margin-bottom: 2px; }
+  .j-org { display: block; font-size: 0.88rem; color: #2d6a4f; font-weight: 500; margin-bottom: 6px; }
+  .j-desc { font-size: 0.9rem; color: #6b7280; line-height: 1.6; margin: 0; }
+
+  @media (max-width: 560px) {
+    .j-row { flex-direction: column; gap: 4px; }
+    .j-year { flex: none; }
+  }
+
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .card {
     display: block; background: #fff;
@@ -245,6 +272,51 @@
 </div>
 
 <main>
+
+  <section>
+    <h3 class="sec">Journey</h3>
+    <div class="journey">
+      <div class="j-row">
+        <div class="j-year">2017 – 2019</div>
+        <div class="j-content">
+          <strong>M.Sc. Geology</strong>
+          <span class="j-org">Savitribai Phule Pune University, India</span>
+        </div>
+      </div>
+      <div class="j-row">
+        <div class="j-year">2020 – 2024</div>
+        <div class="j-content">
+          <strong>M.Sc. Sustainable Resource Management</strong>
+          <span class="j-org">Technical University of Munich, Germany</span>
+          <p class="j-desc">Thesis: Life cycle assessment of a third-generation biopolymer manufacturing route, under ISO 14040/14044 and EPD standards.</p>
+        </div>
+      </div>
+      <div class="j-row">
+        <div class="j-year">2022 – 2023</div>
+        <div class="j-content">
+          <strong>Knowledge Management</strong>
+          <span class="j-org">Systemiq Deutschland Ltd, Munich · Part-time</span>
+          <p class="j-desc">Built a centralised knowledge library on plastics, packaging and material flows, supporting global plastic-pollution initiatives.</p>
+        </div>
+      </div>
+      <div class="j-row">
+        <div class="j-year">2023 – 2024</div>
+        <div class="j-content">
+          <strong>Biomethane &amp; Voluntary Carbon Market Analyst</strong>
+          <span class="j-org">BASF SE, Ludwigshafen · Part-time</span>
+          <p class="j-desc">Analysed European biomethane markets and built a due-diligence framework for voluntary carbon credit procurement.</p>
+        </div>
+      </div>
+      <div class="j-row current">
+        <div class="j-year">2024 – Present</div>
+        <div class="j-content">
+          <strong>Sustainability Specialist, Product Management</strong>
+          <span class="j-org">Surventis (formerly BASF Coatings GmbH), Münster</span>
+          <p class="j-desc">Leading PPWR compliance across a 1,000+ SKU packaging portfolio, and EU Microplastics Regulation implementation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section>
     <h3 class="sec">Projects</h3>
