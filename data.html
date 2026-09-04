@@ -38,27 +38,41 @@
   h1 { font-size: 2rem; letter-spacing: -0.5px; margin: 0 0 6px; }
   .lead { font-size: 1.08rem; color: #444; margin-top: 0; max-width: 620px; }
 
-  .grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px; margin-top: 34px;
+  .block { margin-top: 40px; }
+  .block-title {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.6px;
+    color: #6b7280; font-weight: 600;
+    margin: 0 0 14px; padding-bottom: 10px;
+    border-bottom: 2px solid #d8e2dc;
   }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+
   .stat {
+    border-radius: 12px; padding: 22px 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 150px;
+  }
+  .stat.eu {
     background: #1d4f3a;
     background-image: linear-gradient(160deg, #1d4f3a 0%, #2d6a4f 100%);
-    color: #fff; border-radius: 12px; padding: 24px 22px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 178px;
+    color: #fff;
   }
-  .stat .value { font-size: 2.9rem; font-weight: 700; line-height: 1.05; letter-spacing: -1px; }
-  .stat .value small { font-size: 1.2rem; font-weight: 600; margin-left: 2px; }
-  .stat .name { font-size: 0.95rem; font-weight: 600; margin-top: 10px; }
-  .stat .meta { font-size: 0.8rem; color: rgba(255,255,255,0.68); margin-top: 6px; }
-  .stat.loading .value { font-size: 1.1rem; font-weight: 500; color: rgba(255,255,255,0.7); }
-  .stat.err .value { font-size: 1rem; font-weight: 500; color: #ffd7c2; }
+  .stat.de {
+    background: #fff; border: 1px solid #d8e2dc; color: #1a1a1a;
+  }
+  .stat .value { font-size: 2.6rem; font-weight: 700; line-height: 1.05; letter-spacing: -1px; }
+  .stat .value small { font-size: 1.1rem; font-weight: 600; margin-left: 2px; }
+  .stat .name { font-size: 0.92rem; font-weight: 600; margin-top: 10px; }
+  .stat .meta { font-size: 0.79rem; margin-top: 5px; }
+  .stat.eu .meta { color: rgba(255,255,255,0.68); }
+  .stat.de .meta { color: #6b7280; }
+  .stat.de .value { color: #2d6a4f; }
+  .stat.loading .value { font-size: 1.05rem; font-weight: 500; opacity: 0.65; }
+  .stat.err .value { font-size: 0.95rem; font-weight: 500; opacity: 0.8; }
 
   .note {
     background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 10px;
-    padding: 22px 24px; margin-top: 34px; font-size: 0.92rem; color: #374151;
+    padding: 22px 24px; margin-top: 40px; font-size: 0.92rem; color: #374151;
   }
   .note h2 { font-size: 1rem; margin: 0 0 10px; }
   .note p { margin: 0 0 12px; }
@@ -92,120 +106,15 @@
   <h1>EU Circularity Indicators</h1>
   <p class="lead">
     Live figures pulled directly from Eurostat when this page loads — not copied,
-    not cached. A small selection of the indicators that sit behind the regulation
-    I write about.
+    not cached. Germany shown against the EU average, across the indicators that sit
+    behind the regulation I write about.
   </p>
 
-  <div class="grid">
-    <div class="stat loading" id="s1">
-      <div class="value">Loading…</div>
-      <div>
-        <div class="name">Circular material use rate, EU</div>
-        <div class="meta">Eurostat · cei_srm030</div>
+  <div class="block">
+    <div class="block-title">Circular material use rate</div>
+    <div class="pair">
+      <div class="stat eu loading" id="a1">
+        <div class="value">Loading…</div>
+        <div><div class="name">European Union</div><div class="meta">Eurostat · cei_srm030</div></div>
       </div>
-    </div>
-
-    <div class="stat loading" id="s2">
-      <div class="value">Loading…</div>
-      <div>
-        <div class="name">Packaging waste recycling rate, EU</div>
-        <div class="meta">Eurostat · cei_wm020</div>
-      </div>
-    </div>
-
-    <div class="stat loading" id="s3">
-      <div class="value">Loading…</div>
-      <div>
-        <div class="name">Plastic packaging recycling rate, EU</div>
-        <div class="meta">Eurostat · cei_wm020</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="note">
-    <h2>Why these three</h2>
-    <p>
-      Read together they describe one problem. The circular material use rate shows how
-      small a share of Europe's material input comes from recycling rather than new
-      extraction — the rest is still virgin material.
-    </p>
-    <p>
-      The two packaging figures show where the gap bites hardest. Overall packaging
-      recycling looks reasonably healthy; plastic packaging does not. That matters because
-      the <a href="ppwr.html">PPWR</a> requires binding shares of post-consumer recycled
-      plastic in packaging from 2030, and only material that is actually collected and
-      recycled can supply them.
-    </p>
-    <p>
-      The distance between those two numbers is the supply bottleneck the
-      <a href="circular-economy-act.html">Circular Economy Act</a> is meant to close.
-    </p>
-  </div>
-
-  <p class="src">
-    <strong>Source and method.</strong> Data retrieved live from the Eurostat Statistics
-    API (dissemination API, JSON-stat format) each time this page is opened. Geography is
-    the EU27 aggregate. Each figure shows the most recent year for which Eurostat reports
-    a value, which is not the current year — packaging statistics are published roughly
-    two years in arrears. Packaging recycling rates use the unit defined for the 2025
-    target and onwards. No data is stored or modified here; if Eurostat revises a figure,
-    this page changes with it.
-  </p>
-
-</main>
-
-<footer>
-  Built and maintained by Asif Alam.
-  <br><a href="index.html">← Back to home</a>
-</footer>
-
-<script>
-var BASE = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/";
-
-function latestValue(data) {
-  var ids = data.id || [];
-  var sizes = data.size || [];
-  for (var i = 0; i < ids.length; i++) {
-    if (ids[i] !== "time" && sizes[i] !== 1) {
-      throw new Error("ambiguous dimensions");
-    }
-  }
-  var idx = data.dimension.time.category.index;
-  var years = Object.keys(idx).sort(function (a, b) { return idx[a] - idx[b]; });
-  for (var k = years.length - 1; k >= 0; k--) {
-    var v = data.value[String(idx[years[k]])];
-    if (v !== undefined && v !== null) {
-      return { year: years[k], value: v };
-    }
-  }
-  throw new Error("no values");
-}
-
-function render(id, query, suffix) {
-  var el = document.getElementById(id);
-  fetch(BASE + query)
-    .then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    })
-    .then(function (d) {
-      var got = latestValue(d);
-      el.classList.remove("loading");
-      el.querySelector(".value").innerHTML = got.value + "<small>" + suffix + "</small>";
-      el.querySelector(".meta").textContent = "Eurostat · " + got.year + " · live";
-    })
-    .catch(function (e) {
-      el.classList.remove("loading");
-      el.classList.add("err");
-      el.querySelector(".value").textContent = "Unavailable";
-      el.querySelector(".meta").textContent = "Eurostat request failed";
-    });
-}
-
-render("s1", "cei_srm030?format=JSON&lang=EN&geo=EU27_2020", "%");
-render("s2", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W1501", "%");
-render("s3", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W150102", "%");
-</script>
-
-</body>
-</html>
+      <div class="stat de loading" id="a2">
