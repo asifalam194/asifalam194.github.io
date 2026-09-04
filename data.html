@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EU Circularity Indicators — Asif Alam</title>
+<title>Live Sustainability Data — Asif Alam</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,17 +36,18 @@
 
   main { max-width: 940px; margin: 0 auto; padding: 44px 24px 40px; }
   h1 { font-size: 2rem; letter-spacing: -0.5px; margin: 0 0 6px; }
-  .lead { font-size: 1.08rem; color: #444; margin-top: 0; max-width: 620px; }
+  .lead { font-size: 1.08rem; color: #444; margin-top: 0; max-width: 640px; }
 
-  .block { margin-top: 40px; }
+  .block { margin-top: 44px; }
   .block-title {
     font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.6px;
     color: #6b7280; font-weight: 600;
-    margin: 0 0 14px; padding-bottom: 10px;
+    margin: 0 0 6px; padding-bottom: 10px;
     border-bottom: 2px solid #d8e2dc;
   }
-  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .block-note { font-size: 0.9rem; color: #6b7280; margin: 12px 0 18px; max-width: 620px; }
 
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
   .stat {
     border-radius: 12px; padding: 22px 20px;
     display: flex; flex-direction: column; justify-content: space-between;
@@ -57,9 +58,7 @@
     background-image: linear-gradient(160deg, #1d4f3a 0%, #2d6a4f 100%);
     color: #fff;
   }
-  .stat.de {
-    background: #fff; border: 1px solid #d8e2dc; color: #1a1a1a;
-  }
+  .stat.de { background: #fff; border: 1px solid #d8e2dc; color: #1a1a1a; }
   .stat .value { font-size: 2.6rem; font-weight: 700; line-height: 1.05; letter-spacing: -1px; }
   .stat .value small { font-size: 1.1rem; font-weight: 600; margin-left: 2px; }
   .stat .name { font-size: 0.92rem; font-weight: 600; margin-top: 10px; }
@@ -67,8 +66,35 @@
   .stat.eu .meta { color: rgba(255,255,255,0.68); }
   .stat.de .meta { color: #6b7280; }
   .stat.de .value { color: #2d6a4f; }
-  .stat.loading .value { font-size: 1.05rem; font-weight: 500; opacity: 0.65; }
+  .stat.loading .value { font-size: 1.05rem; font-weight: 500; opacity: 0.6; }
   .stat.err .value { font-size: 0.95rem; font-weight: 500; opacity: 0.8; }
+
+  .wide {
+    background: #1d4f3a;
+    background-image: linear-gradient(160deg, #1d4f3a 0%, #2d6a4f 100%);
+    color: #fff; border-radius: 12px; padding: 26px 24px;
+    display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+  }
+  .wide .value { font-size: 3rem; font-weight: 700; letter-spacing: -1.5px; line-height: 1; }
+  .wide .side { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
+  .wide .side strong { display: block; color: #fff; font-size: 1rem; }
+
+  .bars { margin-top: 4px; }
+  .brow { margin-bottom: 15px; }
+  .btitle {
+    font-size: 0.88rem; font-weight: 600; margin-bottom: 5px;
+    display: flex; justify-content: space-between; gap: 10px;
+  }
+  .btitle em { font-style: normal; font-weight: 400; color: #6b7280; font-size: 0.82rem; }
+  .btrack { background: #eceff0; border-radius: 5px; height: 26px; width: 100%; overflow: hidden; }
+  .bfill {
+    height: 26px; border-radius: 5px; background: #2d6a4f;
+    color: #fff; font-size: 0.78rem; font-weight: 600;
+    text-align: right; padding-right: 9px; line-height: 26px;
+    box-sizing: border-box; white-space: nowrap;
+  }
+  .bfill.hl { background: #1d4f3a; }
+  .bfill.world { background: #9ca3af; }
 
   .note {
     background: #f4f7f5; border: 1px solid #d8e2dc; border-radius: 10px;
@@ -103,15 +129,43 @@
 
 <main>
 
-  <h1>EU Circularity Indicators</h1>
+  <h1>Live Sustainability Data</h1>
   <p class="lead">
-    Live figures pulled directly from Eurostat when this page loads — not copied,
-    not cached. Germany shown against the EU average, across the indicators that sit
-    behind the regulation I write about.
+    Every figure on this page is requested from its source when the page loads — nothing
+    is copied or cached. Three official APIs: Eurostat for European circularity, the World
+    Bank for global emissions, and NOAA for the atmosphere itself.
   </p>
 
   <div class="block">
+    <div class="block-title">Atmospheric CO₂ — global average</div>
+    <p class="block-note">
+      The single number underneath all of it. Measured by NOAA's Global Monitoring
+      Laboratory and updated continuously.
+    </p>
+    <div class="wide" id="noaa">
+      <div class="value">Loading…</div>
+      <div class="side"><strong>parts per million</strong><span id="noaa-date">NOAA Global Monitoring Laboratory</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">CO₂ emissions per person</div>
+    <p class="block-note">
+      Germany against the largest emitters and the world average. This is territorial
+      production-based CO₂, so emissions embedded in imported goods are counted in the
+      country that made them, not the country that consumed them.
+    </p>
+    <div class="bars" id="wb">
+      <p style="color:#6b7280;font-size:0.9rem;">Loading from the World Bank…</p>
+    </div>
+  </div>
+
+  <div class="block">
     <div class="block-title">Circular material use rate</div>
+    <p class="block-note">
+      The share of material entering the economy that comes from recycling rather than new
+      extraction — the broadest single measure of how circular an economy actually is.
+    </p>
     <div class="pair">
       <div class="stat eu loading" id="a1">
         <div class="value">Loading…</div>
@@ -125,7 +179,7 @@
   </div>
 
   <div class="block">
-    <div class="block-title">Packaging waste recycling rate — all packaging</div>
+    <div class="block-title">Packaging waste recycling — all packaging</div>
     <div class="pair">
       <div class="stat eu loading" id="b1">
         <div class="value">Loading…</div>
@@ -139,7 +193,7 @@
   </div>
 
   <div class="block">
-    <div class="block-title">Packaging waste recycling rate — plastic only</div>
+    <div class="block-title">Packaging waste recycling — plastic only</div>
     <div class="pair">
       <div class="stat eu loading" id="c1">
         <div class="value">Loading…</div>
@@ -153,33 +207,32 @@
   </div>
 
   <div class="note">
-    <h2>What these show</h2>
+    <h2>Reading these together</h2>
     <p>
-      The circular material use rate is the share of material entering the economy that
-      comes from recycling rather than new extraction. It is the broadest single measure
-      of how circular an economy actually is, and it moves slowly.
+      Overall packaging recycling looks reasonably healthy. Plastic packaging does not —
+      and that gap is the problem, because the <a href="ppwr.html">PPWR</a> requires binding
+      shares of post-consumer recycled plastic from 2030, and only material actually
+      collected and recycled can supply them. Closing that gap is what the
+      <a href="circular-economy-act.html">Circular Economy Act</a> is meant to do.
     </p>
     <p>
-      The two packaging figures show where the pressure sits. Overall packaging recycling
-      looks reasonably healthy in both. Plastic packaging does not — and that matters,
-      because the <a href="ppwr.html">PPWR</a> requires binding shares of post-consumer
-      recycled plastic from 2030, and only material actually collected and recycled can
-      supply them.
-    </p>
-    <p>
-      The distance between the total and the plastic figure is the supply bottleneck the
-      <a href="circular-economy-act.html">Circular Economy Act</a> is meant to close.
+      The circular material use rate puts the packaging numbers in proportion. Even a good
+      recycling rate in one waste stream moves the whole-economy figure very little, because
+      packaging is a small share of total material throughput. Circularity is not a
+      packaging problem with a packaging solution.
     </p>
   </div>
 
   <p class="src">
-    <strong>Source and method.</strong> Data retrieved live from the Eurostat Statistics
-    API (dissemination API, JSON-stat format) each time this page is opened. EU figures use
-    the EU27 aggregate. Each figure shows the most recent year Eurostat reports a value,
-    which is not the current year — packaging statistics are published roughly two years in
-    arrears, so the EU and Germany figures may carry different years. Packaging recycling
-    rates use the unit defined for the 2025 target and onwards. Nothing is stored or
-    adjusted here; if Eurostat revises a figure, this page changes with it.
+    <strong>Sources and method.</strong> Circularity and packaging figures: Eurostat
+    dissemination API, JSON-stat format, EU27 aggregate and Germany, datasets cei_srm030 and
+    cei_wm020, using the recycling-rate unit defined for the 2025 target and onwards.
+    Emissions: World Bank Indicators API v2, series EN.GHG.CO2.PC.CE.AR5, most recent
+    non-empty year per country. Atmospheric concentration: NOAA Global Monitoring
+    Laboratory global CO₂ trend series. Each figure shows the latest year or date its
+    source reports, which is not the current date — statistical series are published in
+    arrears, so different indicators may carry different years. Nothing here is stored or
+    adjusted; if a source revises a figure, this page changes with it.
   </p>
 
 </main>
@@ -190,7 +243,7 @@
 </footer>
 
 <script>
-var BASE = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/";
+var EUROSTAT = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/";
 
 function latestValue(data) {
   var ids = data.id || [];
@@ -207,13 +260,10 @@ function latestValue(data) {
   throw new Error("no values");
 }
 
-function render(id, query, label) {
+function euro(id, query) {
   var el = document.getElementById(id);
-  fetch(BASE + query)
-    .then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    })
+  fetch(EUROSTAT + query)
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(function (d) {
       var got = latestValue(d);
       el.classList.remove("loading");
@@ -224,18 +274,67 @@ function render(id, query, label) {
       el.classList.remove("loading");
       el.classList.add("err");
       el.querySelector(".value").textContent = "Unavailable";
-      el.querySelector(".meta").textContent = "Eurostat request failed";
+      el.querySelector(".meta").textContent = "Source request failed";
     });
 }
 
-render("a1", "cei_srm030?format=JSON&lang=EN&geo=EU27_2020");
-render("a2", "cei_srm030?format=JSON&lang=EN&geo=DE");
+euro("a1", "cei_srm030?format=JSON&lang=EN&geo=EU27_2020");
+euro("a2", "cei_srm030?format=JSON&lang=EN&geo=DE");
+euro("b1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W1501");
+euro("b2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W1501");
+euro("c1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W150102");
+euro("c2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W150102");
 
-render("b1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W1501");
-render("b2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W1501");
+var WB = "https://api.worldbank.org/v2/country/DEU;USA;CHN;IND;WLD/indicator/EN.GHG.CO2.PC.CE.AR5?format=json&mrnev=1";
 
-render("c1", "cei_wm020?format=JSON&lang=EN&geo=EU27_2020&waste=W150102");
-render("c2", "cei_wm020?format=JSON&lang=EN&geo=DE&waste=W150102");
+fetch(WB)
+  .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(function (d) {
+    if (!Array.isArray(d) || d.length < 2 || !d[1]) throw new Error("no rows");
+    var rows = d[1].filter(function (r) { return r.value !== null; });
+    if (!rows.length) throw new Error("all empty");
+
+    rows.sort(function (a, b) { return b.value - a.value; });
+    var max = rows[0].value;
+
+    var html = "";
+    rows.forEach(function (r) {
+      var pct = Math.max(6, (r.value / max) * 100);
+      var cls = "bfill";
+      if (r.country.value === "Germany") cls += " hl";
+      if (r.countryiso3code === "WLD" || r.country.value === "World") cls += " world";
+      html +=
+        '<div class="brow">'
+        + '<div class="btitle"><span>' + r.country.value + '</span><em>' + r.date + '</em></div>'
+        + '<div class="btrack"><div class="' + cls + '" style="width:' + pct.toFixed(1) + '%">'
+        + r.value.toFixed(1) + ' t</div></div></div>';
+    });
+    html += '<p style="font-size:0.83rem;color:#6b7280;margin-top:4px;">'
+          + 'Tonnes of CO₂ per person per year · World Bank, live</p>';
+    document.getElementById("wb").innerHTML = html;
+  })
+  .catch(function () {
+    document.getElementById("wb").innerHTML =
+      '<p style="color:#6b7280;font-size:0.9rem;">World Bank data unavailable right now.</p>';
+  });
+
+fetch("https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_trend_gl.csv")
+  .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+  .then(function (t) {
+    var lines = t.trim().split("\n").filter(function (l) {
+      return l.trim() && l.trim().charAt(0) !== "#";
+    });
+    var last = lines[lines.length - 1].split(",");
+    var trend = parseFloat(last[last.length - 1]);
+    if (isNaN(trend)) throw new Error("parse");
+    var el = document.getElementById("noaa");
+    el.querySelector(".value").innerHTML = trend.toFixed(1);
+    document.getElementById("noaa-date").textContent =
+      "NOAA · " + last[0] + "-" + last[1] + "-" + last[2] + " · live";
+  })
+  .catch(function () {
+    document.getElementById("noaa").querySelector(".value").textContent = "Unavailable";
+  });
 </script>
 
 </body>
