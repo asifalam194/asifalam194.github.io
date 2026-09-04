@@ -127,32 +127,31 @@
     border-bottom: 3px solid #2d6a4f;
   }
 
-  .journey { margin-top: 4px; }
-  .j-row {
-    display: flex; gap: 24px; align-items: flex-start;
-    border-left: 2px solid #d8e2dc;
-    margin-left: 6px; padding: 0 0 30px 26px;
-    position: relative;
+  .journey {
+    display: flex; gap: 0; overflow-x: auto;
+    padding: 6px 4px 18px; margin: 0 -4px;
+    scroll-snap-type: x proximity;
   }
-  .j-row:last-child { border-left-color: transparent; padding-bottom: 0; }
-  .j-row::before {
-    content: ""; position: absolute; left: -7px; top: 3px;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: #2d6a4f; border: 2px solid #f6f8f6;
+  .j-item {
+    flex: 0 0 200px; scroll-snap-align: start;
+    position: relative; padding-right: 22px;
   }
-  .j-row.current::before { background: #b45309; }
-  .j-year {
-    flex: 0 0 118px; font-size: 0.82rem; font-weight: 600;
-    color: #6b7280; padding-top: 2px;
+  .j-item:not(:last-child)::after {
+    content: ""; position: absolute; top: 21px; left: 42px; right: 0;
+    height: 2px; background: #d8e2dc;
   }
-  .j-content strong { display: block; font-size: 1.02rem; color: #1a1a1a; margin-bottom: 2px; }
-  .j-org { display: block; font-size: 0.88rem; color: #2d6a4f; font-weight: 500; margin-bottom: 6px; }
-  .j-desc { font-size: 0.9rem; color: #6b7280; line-height: 1.6; margin: 0; }
-
-  @media (max-width: 560px) {
-    .j-row { flex-direction: column; gap: 4px; }
-    .j-year { flex: none; }
+  .j-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: #2d6a4f; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1; margin-bottom: 14px;
   }
+  .j-item.current .j-icon { background: #b45309; }
+  .j-icon svg { width: 20px; height: 20px; }
+  .j-year { font-size: 0.78rem; font-weight: 600; color: #6b7280; margin-bottom: 4px; }
+  .j-item strong { display: block; font-size: 0.95rem; color: #1a1a1a; margin-bottom: 2px; line-height: 1.35; }
+  .j-org { display: block; font-size: 0.82rem; color: #2d6a4f; font-weight: 500; margin-bottom: 6px; }
+  .j-desc { font-size: 0.82rem; color: #6b7280; line-height: 1.55; margin: 0; }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
   .card {
@@ -276,44 +275,49 @@
   <section>
     <h3 class="sec">Journey</h3>
     <div class="journey">
-      <div class="j-row">
+      <div class="j-item">
+        <div class="j-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+        </div>
         <div class="j-year">2017 – 2019</div>
-        <div class="j-content">
-          <strong>M.Sc. Geology</strong>
-          <span class="j-org">Savitribai Phule Pune University, India</span>
-        </div>
+        <strong>M.Sc. Geology</strong>
+        <span class="j-org">Pune University, India</span>
       </div>
-      <div class="j-row">
+      <div class="j-item">
+        <div class="j-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+        </div>
         <div class="j-year">2020 – 2024</div>
-        <div class="j-content">
-          <strong>M.Sc. Sustainable Resource Management</strong>
-          <span class="j-org">Technical University of Munich, Germany</span>
-          <p class="j-desc">Thesis: Life cycle assessment of a third-generation biopolymer manufacturing route, under ISO 14040/14044 and EPD standards.</p>
-        </div>
+        <strong>M.Sc. Sustainable Resource Management</strong>
+        <span class="j-org">TU Munich, Germany</span>
+        <p class="j-desc">Thesis: LCA of a third-generation biopolymer manufacturing route, ISO 14040/14044 and EPD standards.</p>
       </div>
-      <div class="j-row">
+      <div class="j-item">
+        <div class="j-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
         <div class="j-year">2022 – 2023</div>
-        <div class="j-content">
-          <strong>Knowledge Management</strong>
-          <span class="j-org">Systemiq Deutschland Ltd, Munich · Part-time</span>
-          <p class="j-desc">Built a centralised knowledge library on plastics, packaging and material flows, supporting global plastic-pollution initiatives.</p>
-        </div>
+        <strong>Knowledge Management</strong>
+        <span class="j-org">Systemiq Deutschland · Part-time</span>
+        <p class="j-desc">Built a centralised knowledge library on plastics, packaging and material flows.</p>
       </div>
-      <div class="j-row">
+      <div class="j-item">
+        <div class="j-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
         <div class="j-year">2023 – 2024</div>
-        <div class="j-content">
-          <strong>Biomethane &amp; Voluntary Carbon Market Analyst</strong>
-          <span class="j-org">BASF SE, Ludwigshafen · Part-time</span>
-          <p class="j-desc">Analysed European biomethane markets and built a due-diligence framework for voluntary carbon credit procurement.</p>
-        </div>
+        <strong>Biomethane &amp; Carbon Market Analyst</strong>
+        <span class="j-org">BASF SE · Part-time</span>
+        <p class="j-desc">Analysed European biomethane markets; built a due-diligence framework for carbon credit procurement.</p>
       </div>
-      <div class="j-row current">
-        <div class="j-year">2024 – Present</div>
-        <div class="j-content">
-          <strong>Sustainability Specialist, Product Management</strong>
-          <span class="j-org">Surventis (formerly BASF Coatings GmbH), Münster</span>
-          <p class="j-desc">Leading PPWR compliance across a 1,000+ SKU packaging portfolio, and EU Microplastics Regulation implementation.</p>
+      <div class="j-item current">
+        <div class="j-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
         </div>
+        <div class="j-year">2024 – Present</div>
+        <strong>Sustainability Specialist, Product Management</strong>
+        <span class="j-org">Surventis, Münster</span>
+        <p class="j-desc">Leading PPWR compliance across a 1,000+ SKU packaging portfolio.</p>
       </div>
     </div>
   </section>
