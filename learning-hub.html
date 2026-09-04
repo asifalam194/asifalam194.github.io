@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Hub: PPWR — Asif Alam</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7; color: #1a1a1a; background: #f6f8f6;
+    max-width: 680px; margin: 0 auto; padding: 48px 24px;
+  }
+  nav { margin-bottom: 40px; font-size: 0.95rem; }
+  nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
+  nav a:hover { text-decoration: underline; }
+  h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .lead { font-size: 1.1rem; color: #444; }
+  .module-tag {
+    display: inline-block; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 1.2px; background: #2d6a4f; color: #fff;
+    padding: 3px 10px; border-radius: 4px; margin-bottom: 14px;
+  }
+
+  .tabs { display: flex; gap: 8px; margin: 28px 0 0; border-bottom: 2px solid #d8e2dc; }
+  .tab-btn {
+    background: none; border: none; font-family: inherit; font-size: 0.95rem;
+    font-weight: 600; color: #6b7280; padding: 10px 6px 12px; cursor: pointer;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+  }
+  .tab-btn.active { color: #2d6a4f; border-bottom-color: #2d6a4f; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .game {
+    background: #fff; border: 1px solid #e2e8e5; border-radius: 10px;
+    padding: 28px; margin-top: 20px; min-height: 280px;
+  }
+  .score { font-size: 0.9rem; color: #6b7280; margin-bottom: 16px; }
+  .scenario { font-size: 1.05rem; margin-bottom: 22px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice {
+    text-align: left; padding: 14px 16px; border: 1px solid #d8e2dc;
+    border-radius: 8px; background: #f4f7f5; cursor: pointer; font-size: 0.95rem;
+    font-family: inherit; color: #1a1a1a;
+  }
+  .choice:hover:not(:disabled) { border-color: #2d6a4f; }
+  .choice:disabled { cursor: default; }
+  .feedback { padding: 16px; border-radius: 8px; margin-top: 16px; font-size: 0.92rem; }
+  .feedback.correct { background: #eaf5ee; border: 1px solid #b9dfc9; color: #1d4f3a; }
+  .feedback.wrong { background: #fdf1ea; border: 1px solid #f0c9a8; color: #8a4a1f; }
+  .next-btn, .restart-btn {
+    margin-top: 16px; background: #2d6a4f; color: #fff; border: none;
+    padding: 10px 20px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;
+    font-family: inherit;
+  }
+  .done { text-align: center; padding: 20px 0; }
+  .done .big { font-size: 2.2rem; font-weight: 700; color: #2d6a4f; margin-bottom: 6px; }
+  .done p { color: #6b7280; margin-bottom: 18px; }
+
+  .instr { font-size: 0.92rem; color: #6b7280; margin-bottom: 18px; }
+  .slots { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .slot {
+    border: 2px dashed #d8e2dc; border-radius: 8px; min-height: 46px;
+    display: flex; align-items: center; padding: 0 14px; font-size: 0.85rem; color: #9aa5a0;
+  }
+  .slot.filled { border-style: solid; border-color: #2d6a4f; color: #1a1a1a; background: #f4f7f5; }
+  .pool { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .pool-card {
+    padding: 10px 14px; background: #eaf5ee; border: 1px solid #b9dfc9;
+    border-radius: 6px; font-size: 0.88rem; cursor: pointer; color: #1d4f3a;
+    font-family: inherit;
+  }
+  .pool-card:hover { background: #d8f0e2; }
+  .pool-card.used { opacity: 0.3; pointer-events: none; }
+  .check-btn {
+    background: #2d6a4f; color: #fff; border: none; padding: 10px 22px;
+    border-radius: 6px; font-size: 0.9rem; cursor: pointer; font-family: inherit;
+  }
+  .result { margin-top: 16px; font-size: 0.92rem; padding: 14px; border-radius: 8px; }
+  .result.ok { background: #eaf5ee; border: 1px solid #b9dfc9; color: #1d4f3a; }
+  .result.no { background: #fdf1ea; border: 1px solid #f0c9a8; color: #8a4a1f; }
+
+  footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.9rem; color: #6b7280; }
+  a { color: #2d6a4f; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="calculator.html">Calculator</a>
+  <a href="data.html">Data</a>
+</nav>
+
+<span class="module-tag">Module 1</span>
+<h1>Learning Hub: PPWR</h1>
+<p class="lead">
+  Two short ways to test what you actually know about the EU Packaging and Packaging
+  Waste Regulation — real decisions, not just definitions.
+</p>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tab-scenario" onclick="switchTab('scenario')">Scenario Challenge</button>
+  <button class="tab-btn" id="tab-timeline" onclick="switchTab('timeline')">Timeline Challenge</button>
+</div>
+
+<div class="panel active" id="panel-scenario">
+  <div class="game" id="scenarioGame"></div>
+</div>
+
+<div class="panel" id="panel-timeline">
+  <div class="game">
+    <div class="instr">Click events below, in the order you think they happen — earliest first.</div>
+    <div class="slots" id="slots"></div>
+    <div class="pool" id="pool"></div>
+    <button class="check-btn" onclick="checkTimeline()">Check order</button>
+    <button class="restart-btn" id="timelineRestart" style="display:none" onclick="resetTimeline()">Shuffle again</button>
+    <div id="timelineResult"></div>
+  </div>
+</div>
+
+<footer>
+  Built by Asif Alam, based on Regulation (EU) 2025/40. For the full breakdown, see
+  <a href="ppwr.html">PPWR, Explained</a>.
+  <br><a href="index.html">← Back to home</a>
+</footer>
+
+<script>
+function switchTab(name) {
+  document.getElementById('tab-scenario').classList.toggle('active', name === 'scenario');
+  document.getElementById('tab-timeline').classList.toggle('active', name === 'timeline');
+  document.getElementById('panel-scenario').classList.toggle('active', name === 'scenario');
+  document.getElementById('panel-timeline').classList.toggle('active', name === 'timeline');
+}
+
+/* ---------- Scenario Challenge ---------- */
+var rounds = [
+  {
+    text: "A shipment of single-use PET beverage bottles lands on your desk for a 2031 launch. Legal asks: what recycled-content share do they legally need?",
+    choices: [
+      { t: "10%", correct: false },
+      { t: "30%", correct: true, note: "Correct. Single-use plastic beverage bottles need 30% post-consumer recycled content from 2030." },
+      { t: "50%", correct: false },
+      { t: "No requirement yet", correct: false }
+    ]
+  },
+  {
+    text: "Your supplier says their recycled plastic is \"25% recycled content\" but it's post-industrial scrap, not post-consumer. Does it count toward your Article 7 target?",
+    choices: [
+      { t: "Yes, recycled is recycled", correct: false },
+      { t: "No — only post-consumer recyclate counts", correct: true, note: "Correct. Post-industrial recyclate doesn't satisfy Article 7 targets, even though it's often marketed as \"recycled.\"" }
+    ]
+  },
+  {
+    text: "A packaging format scores a Grade C recyclability rating. What's its market status in 2039?",
+    choices: [
+      { t: "Fine, just needs a label", correct: false },
+      { t: "Excluded from the market", correct: true, note: "Correct. Grade C packaging is excluded from the market from 2038 onward." },
+      { t: "Only banned for food contact", correct: false }
+    ]
+  },
+  {
+    text: "You're designing a transport box with a lot of empty space for cushioning. What's the empty-space rule you need to hit?",
+    choices: [
+      { t: "No limit, it's just transport packaging", correct: false },
+      { t: "Max 50% empty space", correct: true, note: "Correct. Transport, grouped, and e-commerce packaging is capped at 50% empty space." },
+      { t: "Max 20% empty space", correct: false }
+    ]
+  },
+  {
+    text: "Your team's packaging design tests at 65% recyclability. Can it legally go to market in 2031?",
+    choices: [
+      { t: "Yes, any recyclability level is fine", correct: false },
+      { t: "No — packaging below 70% recyclability can't be placed on the market from 2030", correct: true, note: "Correct. The 70% recyclability threshold applies from 2030 — 65% falls short." }
+    ]
+  },
+  {
+    text: "A customer asks whether PFAS is now banned outright in all packaging. What's accurate?",
+    choices: [
+      { t: "Yes, fully banned everywhere", correct: false },
+      { t: "PFAS presence must be minimised, with specific thresholds for food-contact packaging", correct: true, note: "Correct. PPWR sets minimisation requirements and PFAS thresholds for food-contact packaging — not a blanket ban." },
+      { t: "No restriction until 2030", correct: false }
+    ]
+  },
+  {
+    text: "Marketing wants to keep selling a format that's one of the six single-use plastics banned outright, just rebranded as \"reusable.\" What do you tell them?",
+    choices: [
+      { t: "Fine, if it's marketed as reusable", correct: false },
+      { t: "It's banned regardless of how it's marketed", correct: true, note: "Correct. The ban applies to the format itself — relabelling it doesn't change its legal status." }
+    ]
+  }
+];
+var i = 0, score = 0;
+var g = document.getElementById('scenarioGame');
+
+function renderScenario() {
+  if (i >= rounds.length) {
+    g.innerHTML = '<div class="done"><div class="big">' + score + ' / ' + rounds.length + '</div>' +
+      '<p>Scenarios answered correctly.</p>' +
+      '<button class="restart-btn" onclick="restartScenario()">Play again</button></div>';
+    return;
+  }
+  var r = rounds[i];
+  var html = '<div class="score">Scenario ' + (i+1) + ' of ' + rounds.length + ' · Score: ' + score + '</div>';
+  html += '<div class="scenario">' + r.text + '</div>';
+  html += '<div class="choices">';
+  r.choices.forEach(function(c, idx) {
+    html += '<button class="choice" onclick="pickScenario(' + idx + ')">' + c.t + '</button>';
+  });
+  html += '</div><div id="scenarioFeedback"></div>';
+  g.innerHTML = html;
+}
+function pickScenario(idx) {
+  var r = rounds[i];
+  var c = r.choices[idx];
+  g.querySelectorAll('.choice').forEach(function(b){ b.disabled = true; });
+  var fb = document.getElementById('scenarioFeedback');
+  if (c.correct) {
+    score++;
+    fb.innerHTML = '<div class="feedback correct">✓ ' + c.note + '</div><button class="next-btn" onclick="nextScenario()">Next →</button>';
+  } else {
+    var correctNote = r.choices.filter(function(x){return x.correct;})[0].note;
+    fb.innerHTML = '<div class="feedback wrong">✗ Not quite. ' + correctNote + '</div><button class="next-btn" onclick="nextScenario()">Next →</button>';
+  }
+}
+function nextScenario() { i++; renderScenario(); }
+function restartScenario() { i = 0; score = 0; renderScenario(); }
+renderScenario();
+
+/* ---------- Timeline Challenge ---------- */
+var correctOrder = [
+  "Regulation enters into force",
+  "Directive repealed, PFAS limits apply",
+  "Design-for-recycling criteria adopted",
+  "All packaging must be recyclable",
+  "Grade C packaging excluded",
+  "Recycled-content targets rise sharply"
+];
+var shuffled, placed;
+
+function resetTimeline() {
+  shuffled = correctOrder.slice().sort(function(){ return Math.random() - 0.5; });
+  placed = [];
+  document.getElementById('timelineResult').innerHTML = '';
+  document.getElementById('timelineRestart').style.display = 'none';
+  renderSlots(); renderPool();
+}
+function renderSlots() {
+  var s = document.getElementById('slots');
+  s.innerHTML = '';
+  for (var idx = 0; idx < correctOrder.length; idx++) {
+    var div = document.createElement('div');
+    div.className = 'slot' + (placed[idx] ? ' filled' : '');
+    div.textContent = placed[idx] ? (idx+1) + '. ' + placed[idx] : (idx+1) + '. —';
+    s.appendChild(div);
+  }
+}
+function renderPool() {
+  var p = document.getElementById('pool');
+  p.innerHTML = '';
+  shuffled.forEach(function(txt) {
+    var used = placed.indexOf(txt) !== -1;
+    var b = document.createElement('div');
+    b.className = 'pool-card' + (used ? ' used' : '');
+    b.textContent = txt;
+    b.onclick = function() {
+      if (placed.indexOf(txt) === -1 && placed.length < correctOrder.length) {
+        placed.push(txt);
+        renderSlots(); renderPool();
+      }
+    };
+    p.appendChild(b);
+  });
+}
+function checkTimeline() {
+  var r = document.getElementById('timelineResult');
+  var correctCount = 0;
+  for (var idx = 0; idx < correctOrder.length; idx++) {
+    if (placed[idx] === correctOrder[idx]) correctCount++;
+  }
+  document.getElementById('timelineRestart').style.display = 'inline-block';
+  if (correctCount === correctOrder.length && placed.length === correctOrder.length) {
+    r.innerHTML = '<div class="result ok">✓ Perfect — all ' + correctCount + ' in the right order.</div>';
+  } else {
+    r.innerHTML = '<div class="result no">' + correctCount + ' / ' + correctOrder.length + ' in the correct position.</div>';
+  }
+}
+resetTimeline();
+</script>
+
+</body>
+</html>
