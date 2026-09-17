@@ -4,15 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Circular Economy Act, Explained — Asif Alam</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that — by building a single market for recycled material itself.">
+<meta property="og:title" content="The Circular Economy Act, Explained">
+<meta property="og:description" content="The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that — by building a single market for recycled material itself.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asifalam194.github.io/circular-economy-act.html">
+<meta property="og:image" content="https://asifalam194.github.io/photo.png">
 <style>
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.7; color: #1a1a1a; background: #f6f8f6;
-    max-width: 680px; margin: 0 auto; padding: 48px 24px;
+    margin: 0;
   }
-  nav { margin-bottom: 40px; font-size: 0.95rem; }
-  nav a { color: #2d6a4f; text-decoration: none; margin-right: 20px; font-weight: 500; }
-  nav a:hover { text-decoration: underline; }
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(246,248,246,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .topbar-inner {
+    max-width: 940px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .brand { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px; color: #1a1a1a; text-decoration: none; }
+  .topnav a {
+    color: #374151; text-decoration: none; font-size: 0.93rem; font-weight: 500;
+    margin-left: 6px; padding: 6px 12px; border-radius: 7px;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .topnav a:hover { color: #2d6a4f; background: rgba(45,106,79,0.09); }
+  .article-main { max-width: 680px; margin: 0 auto; padding: 44px 24px 40px; }
   h1 { font-size: 2rem; letter-spacing: -0.5px; margin-bottom: 4px; }
   h2 { font-size: 1.2rem; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid #d8e2dc; }
   .lead { font-size: 1.1rem; color: #444; }
@@ -48,13 +71,19 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html">← Home</a>
-  <a href="knowledge-hub.html">Knowledge Hub</a>
-  <a href="calculator.html">Calculator</a>
-  <a href="data.html">Data</a>
-</nav>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Asif Alam</a>
+    <nav class="topnav">
+      <a href="index.html">Home</a>
+      <a href="knowledge-hub.html">Knowledge Hub</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="data.html">Data</a>
+    </nav>
+  </div>
+</div>
 
+<main class="article-main">
 <h1>The Circular Economy Act, Explained</h1>
 <p class="lead">The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that — by building a single market for recycled material itself.</p>
 
@@ -168,6 +197,7 @@
   material use rate.
   <br><a href="index.html">← Back to home</a>
 </footer>
+</main>
 
 </body>
 </html>
