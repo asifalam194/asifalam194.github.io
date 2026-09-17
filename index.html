@@ -82,7 +82,9 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 3rem; font-weight: 600; color: #d8f0e2;
     overflow: hidden;
+    transition: transform .25s ease;
   }
+  .portrait-wrap:hover .portrait { transform: scale(1.035); }
   .portrait img { width: 100%; height: 100%; object-fit: cover; }
 
   .hero-name {
@@ -104,8 +106,9 @@
     display: flex; align-items: center; justify-content: center;
     color: #f2f7f4; text-decoration: none;
     font-size: 0.82rem; font-weight: 600;
+    transition: background-color .15s ease, transform .15s ease;
   }
-  .socials a:hover { background: rgba(255,255,255,0.14); }
+  .socials a:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
 
   .hero h2 {
     font-size: 1.15rem; font-weight: 600; margin: 0 0 12px;
@@ -147,7 +150,9 @@
     background: #2d6a4f; color: #fff;
     display: flex; align-items: center; justify-content: center;
     position: relative; z-index: 1; margin-bottom: 14px;
+    transition: transform .2s ease;
   }
+  .j-item:hover .j-icon { transform: scale(1.12); }
   .j-item.current .j-icon { background: #b45309; }
   .j-icon svg { width: 20px; height: 20px; }
   .j-year { font-size: 0.78rem; font-weight: 600; color: #6b7280; margin-bottom: 4px; }
@@ -166,6 +171,10 @@
     display: inline-block; background: #fff;
     border: 1px solid #e2e8e5; border-radius: 20px;
     padding: 6px 14px; font-size: 0.85rem; color: #1a1a1a;
+    transition: border-color .15s ease, transform .15s ease, background-color .15s ease;
+  }
+  .skill-tag:hover {
+    border-color: #9dc3ae; background: #f4f7f5; transform: translateY(-1px);
   }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
@@ -173,9 +182,12 @@
     display: block; background: #fff;
     border: 1px solid #e2e8e5; border-radius: 10px;
     padding: 20px 22px; text-decoration: none; color: #1a1a1a;
-    transition: border-color .15s, transform .15s;
+    transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
-  .card:hover { border-color: #9dc3ae; transform: translateY(-2px); }
+  .card:hover {
+    border-color: #9dc3ae; transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(29,81,58,0.1);
+  }
   .card strong { display: block; color: #2d6a4f; font-size: 1.02rem; margin-bottom: 5px; line-height: 1.4; }
   .card span { font-size: 0.9rem; color: #6b7280; line-height: 1.6; }
   .card .kicker {
@@ -199,6 +211,24 @@
 
   .soon { color: #6b7280; font-style: italic; font-size: 0.93rem; margin-top: 16px; }
   .contact-line { margin: 6px 0; }
+
+  .reveal {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .cards .reveal:nth-child(1) { transition-delay: 0ms; }
+  .cards .reveal:nth-child(2) { transition-delay: 70ms; }
+  .cards .reveal:nth-child(3) { transition-delay: 140ms; }
+  .cards .reveal:nth-child(4) { transition-delay: 210ms; }
+  .cards .reveal:nth-child(5) { transition-delay: 280ms; }
+  .skills-group.reveal:nth-of-type(1) { transition-delay: 0ms; }
+  .skills-group.reveal:nth-of-type(2) { transition-delay: 80ms; }
+  .skills-group.reveal:nth-of-type(3) { transition-delay: 160ms; }
+  .skills-group.reveal:nth-of-type(4) { transition-delay: 240ms; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
 
   footer {
     border-top: 1px solid #e5e7eb; margin-top: 64px;
@@ -230,7 +260,7 @@
 </div>
 
 <div class="hero">
-  <div class="hero-inner">
+  <div class="hero-inner reveal">
 
     <div class="hero-left">
       <div class="portrait-wrap">
@@ -289,7 +319,7 @@
 
   <section>
     <h3 class="sec">Journey</h3>
-    <div class="journey">
+    <div class="journey reveal">
       <div class="j-item">
         <div class="j-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
@@ -339,7 +369,7 @@
 
   <section>
     <h3 class="sec">Skills &amp; Tools</h3>
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <p class="skills-label">Sustainability &amp; Environment</p>
       <div class="skill-tags">
         <span class="skill-tag">LCA</span>
@@ -349,7 +379,7 @@
         <span class="skill-tag">Environmental Impact Assessment</span>
       </div>
     </div>
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <p class="skills-label">Regulation &amp; Compliance</p>
       <div class="skill-tags">
         <span class="skill-tag">PPWR</span>
@@ -359,7 +389,7 @@
         <span class="skill-tag">Chain of Custody</span>
       </div>
     </div>
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <p class="skills-label">Data &amp; Software</p>
       <div class="skill-tags">
         <span class="skill-tag">OpenLCA</span>
@@ -370,7 +400,7 @@
         <span class="skill-tag">Excel</span>
       </div>
     </div>
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <p class="skills-label">Collaboration</p>
       <div class="skill-tags">
         <span class="skill-tag">Cross-functional coordination</span>
@@ -384,27 +414,27 @@
   <section>
     <h3 class="sec">Projects</h3>
     <div class="cards">
-      <a class="card" href="learning-hub.html">
+      <a class="card reveal" href="learning-hub.html">
         <span class="kicker">Interactive</span>
         <strong>Learning Hub: PPWR</strong>
         <span>Two short game modes to test what you actually know about the EU Packaging and Packaging Waste Regulation — real decisions, not just definitions.</span>
       </a>
-      <a class="card" href="cottonid-lca.html">
+      <a class="card reveal" href="cottonid-lca.html">
         <span class="kicker">Life cycle assessment</span>
         <strong>LCA of a Bio-Based Vulcanised Fibre (Cottonid)</strong>
         <span>A cradle-to-gate assessment under ISO 14040/44 across four feedstock scenarios — and a clear case of the lowest-carbon option not being the lowest-impact one.</span>
       </a>
-      <a class="card" href="data.html">
+      <a class="card reveal" href="data.html">
         <span class="kicker">Live data</span>
         <strong>EU Circularity Indicators</strong>
         <span>Selected circular economy and packaging statistics pulled live from the Eurostat API each time the page loads.</span>
       </a>
-      <a class="card" href="calculator.html">
+      <a class="card reveal" href="calculator.html">
         <span class="kicker">Tool</span>
         <strong>Carbon Footprint Calculator</strong>
         <span>Household electricity and car travel, using Umweltbundesamt emission factors and German fleet-average consumption data.</span>
       </a>
-      <a class="card" href="ccf-pcf-data-model.html">
+      <a class="card reveal" href="ccf-pcf-data-model.html">
         <span class="kicker">Data model</span>
         <strong>A Data Model for CCF and PCF Calculation</strong>
         <span>Corporate and Product Carbon Footprint share the same calculation engine — they diverge at one hop, and that hop is a methodology decision, not an arithmetic one.</span>
@@ -416,27 +446,27 @@
   <section>
     <h3 class="sec">Knowledge Hub</h3>
     <div class="cards">
-      <a class="card" href="circular-economy-act.html">
+      <a class="card reveal" href="circular-economy-act.html">
         <strong>The Circular Economy Act, Explained</strong>
         <span>The EU has set recycled-content targets it cannot yet meet. This is the law meant to fix that.</span>
       </a>
-      <a class="card" href="ppwr.html">
+      <a class="card reveal" href="ppwr.html">
         <strong>PPWR, Explained</strong>
         <span>One change matters more than any individual target: packaging law stopped being a directive and became a regulation.</span>
       </a>
-      <a class="card" href="mass-balance.html">
+      <a class="card reveal" href="mass-balance.html">
         <strong>Mass Balance, Explained</strong>
         <span>Why a certified sustainable product is chemically identical to the conventional one — and why that is the point, not a loophole.</span>
       </a>
-      <a class="card" href="bioplastics-lca.html">
+      <a class="card reveal" href="bioplastics-lca.html">
         <strong>Comparing Bioplastics: What Ten Years of Life Cycle Studies Actually Show</strong>
         <span>Published carbon figures for bio-based polymers disagree with each other by more than the polymers differ from each other. That's not a flaw in the data — it's the finding.</span>
       </a>
-      <a class="card" href="regulation-to-product.html">
+      <a class="card reveal" href="regulation-to-product.html">
         <strong>What Sustainability Regulations Actually Require of Software Products</strong>
         <span>Regulations don't ship features. Product teams do — and the translation from one to the other is where most compliance products quietly get it wrong.</span>
       </a>
-      <a class="card" href="ghg-lca-pcf-explained.html">
+      <a class="card reveal" href="ghg-lca-pcf-explained.html">
         <strong>GHG, LCA, and PCF: What's the Difference?</strong>
         <span>Three terms that get used almost interchangeably — and shouldn't be. Each one answers a different question, with its own ISO standard behind it.</span>
       </a>
@@ -445,7 +475,7 @@
 
   <section>
     <h3 class="sec">Published work</h3>
-    <div class="pub">
+    <div class="pub reveal">
       <span class="kicker">Nordic Council of Ministers · Systemiq · 2023</span>
       <h4>Towards Ending Plastic Pollution by 2040</h4>
       <p class="pubmeta">TemaNord 2023:539</p>
@@ -483,6 +513,27 @@
 <footer>
   Built and maintained by Asif Alam.
 </footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.classList.add('is-visible');
+    });
+  }
+</script>
 
 </body>
 </html>
